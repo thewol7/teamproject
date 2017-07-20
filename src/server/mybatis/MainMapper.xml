@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	<insert id="signup" parameterType="server.main.dto.ServerMainDto">
+		INSERT INTO tp_account
+		VALUES(tp_account_seq.NEXTVAL, #{id}, #{pwd}, #{name}, #{gender}, #{phone}, #{email}, SYSDATE, DEFAULT)
+	</insert>
+	<select id="idcheck" resultType="int" parameterType="String">
+		SELECT count(*)
+		FROM tp_account
+		WHERE id=#{id}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,38 +12,26 @@ import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import server.dto.ServerDto;
+import server.mybatis.SqlMapConfig;
 import server.util.DbcpBean;
 
 public class ServerDao {
 	private static ServerDao dao;
+	private static SqlSessionFactory factory;
 	private ServerDao(){}
 	
 	public static ServerDao getInst(){
 		if(dao==null){
 			dao=new ServerDao();
+			factory=SqlMapConfig.getSqlSession();
 		}
 		
 		return dao;
 	}
 	
-//	Connection conn=null;
-//	PreparedStatement pst=null;
-//	ResultSet rst=null;
-//	
-//	try{
-//		
-//	}catch(Exception e){
-//		
-//	}finally{
-//		try{
-//			if(rst!=null)rst.close();
-//			if(pst!=null)pst.close();
-//			if(conn!=null)conn.close();
-//		}catch(Exception e){}
-//	}
-	
-	//���̵� üũ: TRUE ����, FALSE ����
 	public boolean idCheck(String id){
 		Connection conn=null;
 		PreparedStatement pst=null;

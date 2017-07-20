@@ -16,6 +16,12 @@ import server.action.ToIndexPg;
 import server.action.ToLoginPg;
 import server.action.ToSignupPg;
 import server.action.ToVisBoardlistPg;
+import server.main.action.HomeAction;
+import server.main.action.LoginAction;
+import server.main.action.LoginformAction;
+import server.main.action.LogoutAction;
+import server.main.action.SignupAction;
+import server.main.action.SignupformAction;
 
 public class UserActionFactory {
 	private static UserActionFactory factory;
@@ -40,16 +46,18 @@ public class UserActionFactory {
 	public Action action(String command) {
 		// Action 추상클래스 type 을 담을 지역변수 만들기
 		Action action = null;
-		if (command.equals("/index")) {
-			action = new ToIndexPg();
-		} else if (command.equals("/loginform")) {
-			action = new ToLoginPg();
-		} else if (command.equals("/login")) {
-			action = new DoLoginAction();
-		} else if (command.equals("/logout")) {
-			action = new DoLogoutAction();
+		if (command.equals("/home")) {
+			action = new HomeAction();
 		} else if (command.equals("/signupform")) {
-			action = new ToSignupPg();
+			action = new SignupformAction();
+		} else if (command.equals("/loginform")) {
+			action = new LoginformAction();
+		} else if (command.equals("/signup")) {
+			action = new SignupAction();
+		} else if (command.equals("/login")) {
+			action = new LoginAction();
+		} else if (command.equals("/logout")){
+			action = new LogoutAction();
 		} else if (command.equals("/board/boardlist")) {
 			action = new ToBoardlistPg();
 		} else if (command.equals("/board/imgboardlist")) {
