@@ -1,0 +1,98 @@
+==============================================================업데이트필요
+페이지 기능이 다 완성되어 있지않음. prev-next, 페이지선택시 리스트
+el+jstl+mybatis
+방명록 추가
+회원가입
+게시판/이미지게시판 글 업데이트+삭제
+메인화면 top count post 가져오기 + top of top 제일 위로
+관리페이지 추가 동적 메뉴
+검색창 기능 구현
+태그로 검색 구현 추가 가능?
+이웃블로그
+로그인 필터 정의 => ~~~?path&url
+게시판 댓글
+ 
+==============================================================버그
+이미지 게시판 메인에 제목이 짧을 경우 이미지 범위 자체가 작아짐
+게시판 상세 글에 이미지가 커질 경우 좌우 스크롤바가 생성되지않음
+게시판 상세 글에 이미지가 커질 경우 하단에 알수없는 button 2개 생성됨
+게시판 제목 없을때 알람 뜨도록 설정 필요함
+
+==============================================================수정 및 추가
+게시판/이미지게시판 content 값 CLOB
+게시판/이미지게시판 title 값 200
+serverDao에 pic_board viewcount 
+
+
+===============================================================플러그인 및 ref javascript
+<!-- 사운드 플레이어 플러그인 -->
+http://ckeditor.com/addon/soundPlayer
+
+
+<!-- ckeditor  -->
+http://ckeditor.com/
+
+
+<!-- summernote 적용 js -->
+<!-- include summernote css/js-->
+<link href="<%=cPath%>/summernote/summernote.css" rel="stylesheet">
+<script src="<%=cPath%>/summernote/summernote.js"></script>
+
+<!-- summer note korean language pack -->
+<script src="<%=cPath%>/summernote/lang/summernote-ko-KR.js"></script>
+
+<!-- .summernote 클래스에 항상 적용시킬 js  -->
+<script src="<%=cPath%>/summernote/summernote_basic.js"></script>
+
+
+<!-- 이미지 확대를 위한 플러그인 및 js -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="<%=cPath %>/assets/js/jquery.magnific-popup.js"></script>
+<script src="<%=cPath %>/assets/js/jquery.magnific.ex.js"></script>
+
+
+<!-- 스마트에디터 사용을 위한 js -->
+<script src="<%=cPath %>/assets/se2/js/HuskyEZCreator.js"></script>
+<script src="<%=cPath %>/assets/se2/js/smarteditor2_basic.js"></script>
+
+
+<!-- ck에디터 사용 js -->
+<script src="<%=cPath %>/ckeditor/ckeditor.js"></script>
+
+
+<!-- ckeditor...  -->
+$("#submit").click(function(){
+		function chkData(){
+			/* onclick 이벤트 발생했을때 ckeditor 에 데이터를 확인함 */
+			var ckData = CKEDITOR.instances.ckContent.getData();
+			
+			/* if(ckData == null){
+				alert("ckData null");
+			}else{
+				alert("ckData:"+ckData);	
+			} */
+				
+			/* 데이터가 없을 경우 알람 띄우기 */
+			if(CKEDITOR.instances.ckContent.getData().length < 1){
+				alert("내용을 입력해 주세요");
+				return false;
+			}else{
+				/* 데이터가 있을 경우 데이터값을 input에 담아서 넘김 */
+				/* document.form1.ckInput.value=ckData; */
+				document.getElementById("ckValue").value=ckData;
+				if(document.getElementById("ckValue").value == null){
+					alert("ckValue null!!");
+					return false;
+				}else{
+					alert("ckValue:"+document.getElementById("ckValue").value
+							+" &&title:"+document.getElementById("title").value);
+					return true;
+				}	
+			}
+		}
+	 });  
+	 
+	 
+	 <script type="text/javascript">
+								CKEDITOR.replace('ckContent');								
+							</script>
