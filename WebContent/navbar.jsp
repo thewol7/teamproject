@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	String cPath = request.getContextPath();
-	String page_id = request.getParameter("page_id");
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="inner">
 
 	<!-- Search -->
@@ -25,13 +22,13 @@
 	</header>	 -->
 	<ul>
 		<li>
-			<a href="<%=cPath%>/index.do?page_id=<%=page_id %>">HOME</a>
+			<a href="${pageContext.request.contextPath }/home.do">HOME</a>
 		</li>
 		<li>
 			<span class="opener">게시판</span>
 			<ul>
 				<li>
-					<a href="<%=cPath%>/board/boardlist.do?page_id=<%=page_id%>">자유
+					<a href="${pageContext.request.contextPath }/board/boardlist.do">자유
 						게시판</a>
 				</li>
 				<li>
@@ -46,7 +43,7 @@
 			<span class="opener">여행사진</span>
 			<ul>
 				<li>
-					<a href="<%=cPath%>/board/imgboardlist.do?page_id=<%=page_id%>">2014-02-베트남</a>
+					<a href="${pageContext.request.contextPath }/board/imgboardlist.do">2014-02-베트남</a>
 				</li>
 				<li>
 					<a href="#" onclick="alert('준비중.. 누르지마')">2015-12-일본</a>
@@ -83,7 +80,7 @@
 			<a href="#" onclick="alert('준비중.. 누르지마')">파일자료실</a>
 		</li>
 		<li>
-			<a href="<%=cPath%>/board/visboardlist.do?page_id=<%=page_id%>">방명록</a>
+			<a href="${pageContext.request.contextPath }/board/visboardlist.do">방명록</a>
 		</li>
 		<li>
 			<a
@@ -96,7 +93,7 @@
 				폭풍으로2</a>
 		</li>
 		<li>
-			<a href="<%=cPath%>/mgt/management.jsp">관리</a>
+			<a href="${pageContext.request.contextPath }/mgt/management.jsp">관리</a>
 		</li>
 	</ul>
 	</nav>

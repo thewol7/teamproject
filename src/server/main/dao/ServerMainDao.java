@@ -1,5 +1,8 @@
 package server.main.dao;
 
+import java.util.List;
+import java.util.Random;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -45,6 +48,26 @@ public class ServerMainDao {
 			return (int)result;
 		}else{
 			return 0;
+		}
+	}
+	
+	public ServerMainDto getInfo(int user_id){
+		SqlSession session=factory.openSession();
+		ServerMainDto dto=session.selectOne("main.getInfo", user_id);
+		session.close();
+		return dto;
+	}
+	
+	public ServerMainDto getRandomPage(){
+		SqlSession session=factory.openSession();
+		List<ServerMainDto> users=session.selectList("main.getRandomPage");
+		session.close();
+		if(users!=null){
+			Random ran=new Random();
+			int result=ran.nextInt(users.size());
+			return users.get(result);
+		}else{
+			return new ServerMainDto();
 		}
 	}
 }
