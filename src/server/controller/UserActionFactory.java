@@ -1,23 +1,20 @@
 package server.controller;
 
-import server.action.DoBoardwriteAction;
 import server.action.DoImgBoardwriteAction;
-import server.action.DoLoginAction;
-import server.action.DoLogoutAction;
-import server.action.ToBoardDetailPg;
-import server.action.ToBoardUpdatePg;
-import server.action.ToBoardlistPg;
-import server.action.ToBoardwritePg;
 import server.action.ToImgBoardDetailPg;
 import server.action.ToImgBoardUpdatePg;
 import server.action.ToImgBoardlistPg;
 import server.action.ToImgBoardwritePg;
-import server.action.ToIndexPg;
-import server.action.ToLoginPg;
-import server.action.ToSignupPg;
 import server.action.ToVisBoardlistPg;
 import server.guestboard.action.GuestBoardInsertAction;
 import server.guestboard.action.GuestBoardListAction;
+import server.board.action.BoardDeleteAction;
+import server.board.action.BoardDetailAction;
+import server.board.action.BoardListAction;
+import server.board.action.BoardUpdateAction;
+import server.board.action.BoardUpdateformAction;
+import server.board.action.BoardWriteAction;
+import server.board.action.BoardWriteformAction;
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
@@ -31,7 +28,6 @@ public class UserActionFactory {
 	private UserActionFactory() {
 	}
 
-	// 자신의 참조값을 리턴해주는 메소드
 	public static UserActionFactory getInstance() {
 		if (factory == null) {
 			factory = new UserActionFactory();
@@ -39,14 +35,7 @@ public class UserActionFactory {
 		return factory;
 	}
 
-	// 인자로 전달되는 command 를 수행할 Action type 객체를 리턴해주는
-	// 메소드
-	/*
-	 * else if (command.equals("/board/boardlist")) { action = new
-	 * ToBoardlistPgAction(); }
-	 */
 	public Action action(String command) {
-		// Action 추상클래스 type 을 담을 지역변수 만들기
 		Action action = null;
 		if (command.equals("/home")) {
 			action = new HomeAction();
@@ -60,20 +49,24 @@ public class UserActionFactory {
 			action = new LoginAction();
 		} else if (command.equals("/logout")){
 			action = new LogoutAction();
-		} else if (command.equals("/board/boardlist")) {
-			action = new ToBoardlistPg();
+		} else if (command.equals("/views/board/boardlist")) {
+			action = new BoardListAction();
 		} else if (command.equals("/board/imgboardlist")) {
 			action = new ToImgBoardlistPg();
 		} else if (command.equals("/board/visboardlist")) {
 			action = new ToVisBoardlistPg();
-		} else if (command.equals("/board/boarddetail")) {
-			action = new ToBoardDetailPg();
-		} else if (command.equals("/board/boardwrite")) {
-			action = new DoBoardwriteAction();
-		} else if (command.equals("/board/boardwriteform")) {
-			action = new ToBoardwritePg();
-		} else if (command.equals("/board/boardupdateform")) {
-			action = new ToBoardUpdatePg();
+		} else if (command.equals("/views/board/boarddetail")) {
+			action = new BoardDetailAction();
+		} else if (command.equals("/views/board/boardwriteform")) {
+			action = new BoardWriteformAction();
+		} else if (command.equals("/views/board/boardwrite")){
+			action = new BoardWriteAction();
+		} else if (command.equals("/views/board/boardupdateform")) {
+			action = new BoardUpdateformAction();
+		} else if(command.equals("/views/board/boardupdate")){
+			action = new BoardUpdateAction();
+		} else if(command.equals("/views/board/boarddelete")){
+			action = new BoardDeleteAction();
 		} else if (command.equals("/board/imgboardwriteform")) {
 			action = new ToImgBoardwritePg();
 		}  else if (command.equals("/board/imgboardwrite")){

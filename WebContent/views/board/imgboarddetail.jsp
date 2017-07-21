@@ -1,4 +1,3 @@
-<%@page import="server.board.dao.PriboardDao"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="server.dao.ServerDao"%>
@@ -13,8 +12,8 @@
 	System.out.println("jsp cont_id :"+cont_id);
 	System.out.println("jsp page_id :"+page_id);
 	
-	ArrayList<Map<String, Object>> data=PriboardDao.getInst().getPridetail(cont_id);
-	boolean updateviewcount=ServerDao.getInst().updateviewcount(cont_id);
+	ArrayList<Map<String,Object>> data=ServerDao.getInst().getPicdetail(cont_id);
+	boolean updateviewcount=ServerDao.getInst().updateimgviewcount(cont_id);
 
 %>
 <jsp:include page="/resource.jsp"></jsp:include>
@@ -30,11 +29,10 @@
 </style>
 <script>
 	function backTolist() {
-		location.href = "<%=cPath%>/board/boardlist.do?page_id=<%=page_id %>";
+		location.href = "<%=cPath%>/board/imgboardlist.do?page_id=<%=page_id %>";
 	};
-	// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
 	function mvUpdateForm() {
-		location.href = "<%=cPath%>/board/boardupdateform.do?page_id=<%=page_id%>&cont_id=<%=cont_id%>";
+		location.href = "<%=cPath%>/board/imgboardupdateform.do?page_id=<%=page_id%>&cont_id=<%=cont_id%>";
 	}
 </script>
 <body>
@@ -148,7 +146,7 @@
 						<%} %>
 						<li>
 							<input type="reset" onclick="backTolist()" value="돌아가기" />
-						</li>				
+						</li>					
 					</ul>
 				</div>
 				</section>

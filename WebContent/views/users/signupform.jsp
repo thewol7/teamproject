@@ -23,12 +23,12 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="/home.do?page_id=${page_id }" class="logo">
+				<a href="home.do" class="logo">
 					<strong>${page_id }</strong>님의 Blog
 				</a>
 				<ul class="icons">
 					<li>
-						<a href="/home.do?page_id=${page_id }" class="logo">
+						<a href="home.do" class="logo">
 							<span class="">홈으로</span>
 						</a>
 					</li>

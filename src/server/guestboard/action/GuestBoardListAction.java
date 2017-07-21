@@ -16,7 +16,7 @@ public class GuestBoardListAction extends Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//페이지 아이디를 받아서
-		int page_id = Integer.parseInt(request.getParameter("page_id"));
+		int page_id = (Integer)request.getSession().getAttribute("page_id");
 		//그 페이지에 작성된 방명록리스트를 가져와서 request에 담음
 
 		List<GuestBoardDto> list = GuestBoardDao.getInstance().getList(page_id);		
@@ -25,7 +25,12 @@ public class GuestBoardListAction extends Action{
 		GuestBoardDto usernamedto = GuestBoardDao.getInstance().getUserName(page_id);
 		request.setAttribute("usernamedto", usernamedto);
 		//작성자의 이름을 가져와서 request 에 담음
-		GuestBoardDto writernamedto = GuestBoardDao.getInstance().getWriterName((Integer)request.getSession().getAttribute("id"));
+		GuestBoardDto writernamedto=null;
+		if(request.getSession().getAttribute("id")==null){
+			writernamedto=null;
+		}else{
+			writernamedto = GuestBoardDao.getInstance().getWriterName((Integer)request.getSession().getAttribute("id"));
+		}
 		request.setAttribute("writernamedto", writernamedto);
 		return new ActionForward("/views/guestboard/list.jsp");
 	}

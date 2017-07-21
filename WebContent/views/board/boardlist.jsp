@@ -42,8 +42,8 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="<%=cPath%>/index.do" class="logo">
-					<strong>${id }</strong>님의 Blog
+				<a href="<%=cPath%>/home.do" class="logo">
+					<strong>${info.name }</strong>님의 Blog
 				</a>
 				<ul class="icons">
 					<c:choose>
@@ -107,12 +107,14 @@
 					<div class="6u 6u(small)">
 						<h2 class="h-header">게시판</h2>
 					</div>
+				<c:if test="${ id eq page_id  }">
 					<div class="6u 6u(small)" style="text-align: right">
 						<h4>
-							<a href="${pageContext.request.contextPath }/board/boardwriteform.do"
+							<a href="${pageContext.request.contextPath }/views/board/boardwriteform.do"
 								class="button special" onclick="return loginChk()">새글쓰기</a>
 						</h4>
 					</div>
+				</c:if>	
 				</div>
 				<div class="table-wrapper">
 					<ul class="alt">
@@ -158,28 +160,44 @@
 						</tbody>
 					</table>
 					<ul class="pagination" style="text-align: center">
+					<c:choose>
+					<c:when test="${startPageNum eq 1 }">
 						<li>
 							<span class="button disabled">Prev</span>
 						</li>
+					</c:when>
+					<c:otherwise>
+						<li>
+							<span href="boardlist.do?pageNum=${startPageNum-1 }" class="button disabled">Prev</span>
+						</li>
+					</c:otherwise>
+					</c:choose>	
 					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 						<c:choose>
 							<c:when test="${i eq pageNum }">
 							<li>
 								<a class="page active"
-									href="boardlist.jsp?pageNum=${i}">${i}</a>
+									href="boardlist.do?pageNum=${i}">${i}</a>
 							</li>
 							</c:when>
 							<c:otherwise>
 							<li>
 								<a class="page"
-									href="boardlist.jsp?pageNum=${i}">${i}</a>
+									href="boardlist.do?pageNum=${i}">${i}</a>
 							</li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-						<li>
-							<a href="#" class="button">Next</a>
-						</li>
+					<c:choose>
+						<c:when test="${endPageNum eq totalPageCount }">
+							<span class="button disabled">Next</span>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="boardlist.do?pageNum=${endPageNum+1 }" class="button">Next</a>
+							</li>
+						</c:otherwise>
+					</c:choose>	
 					</ul>
 				</div>
 
@@ -194,4 +212,9 @@
 
 	</div>
 </body>
+<c:if test="${not empty msg }">
+<script>
+	alert("${msg}");
+</script>
+</c:if>
 </html>

@@ -1,21 +1,8 @@
-<%@page import="server.board.dao.PriboardDao"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="server.dao.ServerDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	String cPath = request.getContextPath();
-	
-	int cont_id=(int)request.getAttribute("cont_id");
-	int page_id=(int)request.getAttribute("page_id");
-	
-	System.out.println("jsp cont_id :"+cont_id);
-	System.out.println("jsp page_id :"+page_id);
-	
-	ArrayList<Map<String, Object>> data=PriboardDao.getInst().getPridetail(cont_id);
-	boolean updateviewcount=ServerDao.getInst().updateviewcount(cont_id);
-
+	String page_id = request.getParameter("page_id");
 %>
 <jsp:include page="/resource.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,12 +16,16 @@
 <style>
 </style>
 <script>
-	function backTolist() {
-		location.href = "<%=cPath%>/board/boardlist.do?page_id=<%=page_id %>";
-	};
-	// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
-	function mvUpdateForm() {
-		location.href = "<%=cPath%>/board/boardupdateform.do?page_id=<%=page_id%>&cont_id=<%=cont_id%>";
+	//로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
+	function loginChk() {
+	if (<%=request.getSession().getAttribute("id")%> == null){
+		if(confirm("로그인이 필요합니다.")){
+	        location.href = "<%=cPath%>/loginform.do?page_id=<%=page_id%>";
+			}
+			return false;
+		} else {
+			return true;
+		}
 	}
 </script>
 <body>
@@ -48,7 +39,7 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="<%=cPath%>/index.jsp?page_id=<%=page_id %>" class="logo">
+				<a href="<%=cPath%>/index.do?page_id=<%=page_id %>" class="logo">
 					<strong><%=page_id%></strong>님의 Blog
 				</a>
 				<ul class="icons">
@@ -81,7 +72,7 @@
 						<i>|</i>
 					</li>
 					<li>
-						<!-- 이웃 블로그 목록이 드롭다운 되어 표시되도록 하여 선택시 이동 되게 한다. -->
+						<!-- 이웃 블로그 목록이 드롭다운 되어 표시되도록 하여 선택시 이동 되게 한다.target="_blank" -->
 						<a href="#" class="logo" onclick="alert('준비중.. 누르지마')">
 							<span class="">이웃블로그</span>
 						</a>
@@ -114,43 +105,70 @@
 				</header>
 				<!-- Banner -->
 				<section style="padding-top : 3em">
-				<div class="box 12u$" style="padding-bottom: 22px; min-height: 500px;">
-					<h4 style="margin-bottom:0">
-						<p><%=data.get(0).get("content_title")%></p>
-					</h4>
-					<ul class="alt">
-						<li></li>
-						<li></li>
-					</ul>
-					<%-- <div class="12u$">
-							<textarea name="ckContent" id="ckContent" placeholder="content"
-								rows="20"></textarea>
-							<script type="text/javascript">
-								UPLOADCARE_PUBLIC_KEY = '07c3ee3ce257b7a7ce86';
-								CKEDITOR.replace('ckContent');
-								/* CKEDITOR.config.toolbarCanCollapse = false; */
-								CKEDITOR.instances.ckContent.setData('<p><%=data.get(0).get("content_content") %></p>');
-								/* CKEDITOR.config.readOnly = true; */
-							</script>
-						</div>  --%>
-					<p><%=data.get(0).get("content_content") %></p>
+				<ul class="alt">
+					<%
+						// test용.. != null / == null 바꿔서 로그인 로그아웃 표시 확인
+						if (request.getSession().getAttribute("id") == null) {
+					%>
+					<li>
+						로그인 후 방명록을 남겨주세요
+					</li>
+					<%
+						} else {
+					%>
+					<li>
+						<a class="icon" href="">로그인 아이디 넣기</a>
+					</li>
+					<%
+						}
+					%>
+				</ul>
+				<form method="post" action="#">
+					<div class="row uniform">
+						<div class="12u 12u$(xsmall)" style="padding-top: 0">
+							<textarea style="resize: none" name="content" id="content"
+								placeholder="안부글을 남겨주세요" rows="3"></textarea>
+						</div>
+						<!-- Break -->
+						<div class="12u$" style="text-align: right">
+							<ul class="actions">
+								<li>
+									<input type="submit" value="확인" class="special"
+										onclick="return loginChk()" />
+								</li>
+								<!-- <li>
+									<input type="reset" onclick="backTolist()" value="취소" />
+								</li> -->
+							</ul>
+						</div>
+					</div>
+				</form>
+				<div class="12u$">
+					<%
+						for (int i = 0; i < 15; i++) {
+					%>
+					<div class="box">
+						<ul class="alt">
+							<li>
+								<a class="icon" href="">~~~~님 id값 넣기</a>
+								<i>2017-06-02</i>
+							</li>
+							<li></li>
+						</ul>
+						<p>Lorem ipsum dolor sit ametoriosam.</p>
+					</div>
+					<%
+						}
+					%>
 				</div>
-				<!-- Break -->
-				<div class="12u$" style="text-align: right">
-					<ul class="actions">
-						<% if (request.getSession().getAttribute("id") != null){%>
-						<li style="text-align: right">
-							<input type="button" class="special" onclick="mvUpdateForm()" value="수정" />
-						</li>
-						<li style="text-align: right">
-							<input type="button" class="special" onclick="mvUpdateForm()" value="삭제" />
-						</li>
-						<%} %>
-						<li>
-							<input type="reset" onclick="backTolist()" value="돌아가기" />
-						</li>				
-					</ul>
-				</div>
+				<ul class="pagination" style="text-align: center">
+					<li>
+						<span class="button disabled">Prev</span>
+					</li>
+					<li>
+						<a href="#" class="button">Next</a>
+					</li>
+				</ul>
 				</section>
 			</div>
 		</div>

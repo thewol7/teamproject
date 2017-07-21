@@ -1,5 +1,9 @@
 /server/
+<<<<<<< HEAD
 /action/
 /dao/
 /dto/
 /sever/
+=======
+/board/
+>>>>>>> refs/remotes/origin/master

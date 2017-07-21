@@ -23,7 +23,7 @@
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 --> <a
 					href="home.do" class="logo"
 				>
-					<strong>${page_id}</strong>님의 Blog
+					<strong>${info.name }</strong>님의 Blog
 				</a>
 				<ul class="icons">
 					<%

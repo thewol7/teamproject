@@ -12,7 +12,7 @@ public class ToIndexPg extends Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		String page_id = request.getParameter("page_id");
 		request.setAttribute("page_id", page_id);
-		return new ActionForward("/index.jsp?page_id="+page_id);
+		return new ActionForward("/index.jsp");
 	}
 
 }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import server.dao.ServerDao;
+import server.board.dao.PriboardDao;
 
 @WebServlet("/board/update")
 public class UpdateServlet extends HttpServlet{
@@ -25,7 +25,7 @@ public class UpdateServlet extends HttpServlet{
 		String content_title=(String)request.getParameter("title");
 		String content_content=(String)request.getParameter("content");
 	
-		boolean updatePriboard=ServerDao.getInst().updatePriboard(request.getSession(),cont_id ,content_title, content_content);
+		boolean updatePriboard=PriboardDao.getInst().updatePriboard(request.getSession(),cont_id ,content_title, content_content);
 		
 		if(updatePriboard==true){
 			response.sendRedirect(request.getContextPath()+"/board/boardlist.jsp?page_id="+(String)request.getParameter("page_id"));
