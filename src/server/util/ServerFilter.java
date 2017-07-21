@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import server.dao.ServerDao;
+import server.main.dao.ServerMainDao;
+import server.main.dto.ServerMainDto;
 
 
 public class ServerFilter implements Filter{
-	private String myEncoding;
 	@Override
 	public void destroy() {
 		
@@ -31,35 +32,30 @@ public class ServerFilter implements Filter{
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
-		// 게시판 기본으로 진입 가능하게 하여 글은 읽을수 있도록 함
-		/*if(tmp.length>2){
-		if(request.getSession().getAttribute("id")==null && tmp[2].equals("board")){
-			response.sendRedirect(request.getContextPath()+"/login.jsp");
-			return;
+		if(request.getSession().getAttribute("page_id")!=null){
+			request.setAttribute("page_id", request.getSession().getAttribute("page_id"));
 		}
-		}*/
 		
-		if(request.getParameter("page_id")==null && request.getSession().getAttribute("id")!=null && !tmp[tmp.length-1].equals("login.jsp") && !tmp[tmp.length-1].equals("signup.jsp") && !tmp[tmp.length-1].equals("signup")){
-			response.sendRedirect(request.getRequestURL()+"?page_id="+request.getSession().getAttribute("id"));
+		if(request.getSession().getAttribute("page_id")==null && request.getSession().getAttribute("id")!=null && !tmp[tmp.length-1].equals("loginform.do") && !tmp[tmp.length-1].equals("login.do") && !tmp[tmp.length-1].equals("signupform.do") && !tmp[tmp.length-1].equals("signup.do")){
+			request.getSession().setAttribute("page_id", request.getSession().getAttribute("id"));
+			response.sendRedirect(request.getContextPath()+"/home.do");
 			return;
 		}
 		
-		if(request.getParameter("page_id")==null && !tmp[tmp.length-1].equals("login.jsp") && !tmp[tmp.length-1].equals("signup.jsp") && !tmp[tmp.length-1].equals("signup")){
-			response.sendRedirect(request.getRequestURL()+"?page_id="+ServerDao.getInst().getRandomPage());
+		if(request.getSession().getAttribute("page_id")==null && !tmp[tmp.length-1].equals("loginform.do") && !tmp[tmp.length-1].equals("login.do") && !tmp[tmp.length-1].equals("signup.do") && !tmp[tmp.length-1].equals("signup.do")){
+			request.getSession().setAttribute("page_id", ServerMainDao.getInst().getRandomPage().getUser_id());
+			response.sendRedirect(request.getContextPath()+"/home.do");
 			return;
 		}
 		
-		if(req.getCharacterEncoding()==null){
-			req.setCharacterEncoding(myEncoding);
-			res.setCharacterEncoding(myEncoding);
-		}
+		ServerMainDto dto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("page_id"));
+		request.setAttribute("info", dto);
+		
 		chain.doFilter(req, res);
 	}
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		System.out.println("init()");
-		myEncoding=config.getInitParameter("myEncoding");
 	}
 }
 

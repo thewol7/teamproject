@@ -10,6 +10,21 @@
 		FROM tp_account
 		WHERE id=#{id}
 	</select>
+	<select id="login" resultType="int" parameterType="server.main.dto.ServerMainDto">
+		SELECT user_id
+		FROM tp_account
+		WHERE id=#{id}
+		AND pwd=#{pwd}
+	</select>
+	<select id="getInfo" resultType="server.main.dto.ServerMainDto" parameterType="int">
+		SELECT *
+		FROM tp_account
+		WHERE user_id=#{user_id}
+	</select>
+	<select id="getRandomPage" resultType="server.main.dto.ServerMainDto">
+		SELECT *
+		FROM tp_account
+	</select>
 </mapper>
 
 
