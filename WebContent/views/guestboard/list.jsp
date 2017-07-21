@@ -26,7 +26,7 @@
 						// test용.. != null / == null 바꿔서 로그인 로그아웃 표시 확인
 						if (request.getSession().getAttribute("id") == null) {
 					--%>
-					<c:if test="${not empty param.page_id }">
+					<c:if test="${empty sessionScope.id }">
 					<li>
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
@@ -38,13 +38,13 @@
 						
 					</li>
 					</c:if>
-					
+					<c:if test="${not empty sessionScope.id }">
 					<li>
 						<a href="/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
-					
+					</c:if>
 					<%--
 						}
 					--%>
