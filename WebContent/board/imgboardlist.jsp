@@ -1,8 +1,6 @@
-<%@page import="java.util.Map"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="server.dao.ServerDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String cPath = request.getContextPath();
 	String page_id = (String) request.getAttribute("page_id");
@@ -11,7 +9,7 @@
 	double count = (int) request.getAttribute("pageNum");
 	int pages = (int) request.getAttribute("pages");
 
-	ArrayList<Map<String, Object>> data = ServerDao.getInst().getPicboard(Integer.parseInt(page_id),
+	ArrayList<Map<String, Object>> data = ImgDao.getInst().getPicboard(Integer.parseInt(page_id),
 			(pageNum - 1) * 12, pageNum * 12);
 	/* (pageNum - 1) * 8, pageNum * 8); */
 %>

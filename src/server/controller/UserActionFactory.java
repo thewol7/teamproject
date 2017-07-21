@@ -1,20 +1,15 @@
 package server.controller;
 
 import server.action.DoBoardwriteAction;
-import server.action.DoImgBoardwriteAction;
-import server.action.DoLoginAction;
-import server.action.DoLogoutAction;
+import server.img.action.DoImgBoardwriteAction;
 import server.action.ToBoardDetailPg;
 import server.action.ToBoardUpdatePg;
 import server.action.ToBoardlistPg;
 import server.action.ToBoardwritePg;
-import server.action.ToImgBoardDetailPg;
-import server.action.ToImgBoardUpdatePg;
-import server.action.ToImgBoardlistPg;
-import server.action.ToImgBoardwritePg;
-import server.action.ToIndexPg;
-import server.action.ToLoginPg;
-import server.action.ToSignupPg;
+import server.img.action.ToImgBoardDetailPg;
+import server.img.action.ToImgBoardUpdatePg;
+import server.img.action.PicboardListAction;
+import server.img.action.ToImgBoardwritePg;
 import server.action.ToVisBoardlistPg;
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
@@ -61,7 +56,7 @@ public class UserActionFactory {
 		} else if (command.equals("/board/boardlist")) {
 			action = new ToBoardlistPg();
 		} else if (command.equals("/board/imgboardlist")) {
-			action = new ToImgBoardlistPg();
+			action = new PicboardListAction();
 		} else if (command.equals("/board/visboardlist")) {
 			action = new ToVisBoardlistPg();
 		} else if (command.equals("/board/boarddetail")) {
