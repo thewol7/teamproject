@@ -39,12 +39,12 @@ public class ServerFilter implements Filter{
 		}
 		}*/
 		
-		if(request.getParameter("page_id")==null && request.getSession().getAttribute("id")!=null && !tmp[tmp.length-1].equals("login.jsp") && !tmp[tmp.length-1].equals("signup.jsp") && !tmp[tmp.length-1].equals("signup")){
+		if(request.getParameter("page_id")==null && request.getSession().getAttribute("id")!=null && !tmp[tmp.length-1].equals("loginform.do") && !tmp[tmp.length-1].equals("login.do") && !tmp[tmp.length-1].equals("signupform.do") && !tmp[tmp.length-1].equals("signup.do")){
 			response.sendRedirect(request.getRequestURL()+"?page_id="+request.getSession().getAttribute("id"));
 			return;
 		}
 		
-		if(request.getParameter("page_id")==null && !tmp[tmp.length-1].equals("login.jsp") && !tmp[tmp.length-1].equals("signup.jsp") && !tmp[tmp.length-1].equals("signup")){
+		if(request.getParameter("page_id")==null && !tmp[tmp.length-1].equals("loginform.do") && !tmp[tmp.length-1].equals("login.do") && !tmp[tmp.length-1].equals("signup.do") && !tmp[tmp.length-1].equals("signup.do")){
 			response.sendRedirect(request.getRequestURL()+"?page_id="+ServerDao.getInst().getRandomPage());
 			return;
 		}

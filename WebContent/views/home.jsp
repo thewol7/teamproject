@@ -34,7 +34,7 @@
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="loginform.do?page_id=${page_id}" class="logo">
+						<a href="loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>

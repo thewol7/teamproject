@@ -36,4 +36,15 @@ public class ServerMainDao {
 		session.insert("main.signup", dto);
 		session.close();
 	}
+	
+	public int login(ServerMainDto dto){
+		SqlSession session=factory.openSession();
+		Object result=session.selectOne("main.login", dto);
+		session.close();
+		if(result!=null){
+			return (int)result;
+		}else{
+			return 0;
+		}
+	}
 }

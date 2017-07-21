@@ -14,12 +14,6 @@ public class SignupAction extends Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("pwd"));
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("gender"));
-		System.out.println(request.getParameter("phone"));
-		System.out.println(request.getParameter("email"));
 		ServerMainDao dao=ServerMainDao.getInst();
 		if(dao.idCheck(request.getParameter("id"))){
 			return new ActionForward("/signupform.do");

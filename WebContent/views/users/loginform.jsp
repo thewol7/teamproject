@@ -76,7 +76,7 @@
 				</section>
 				<section id="banner" class="login-input-reform">
 				<div class="content">
-					<form action="/login.do?page_id=${page_id }" method="post" id="login_form">
+					<form action="login.do" method="post" id="login_form">
 						<div class="12u 12u$(xsmall) input-reform-bottom">
 							<input type="text" name="id" id="id" value="" placeholder="아이디" />
 						</div>

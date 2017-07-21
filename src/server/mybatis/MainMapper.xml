@@ -10,6 +10,12 @@
 		FROM tp_account
 		WHERE id=#{id}
 	</select>
+	<select id="login" resultType="int" parameterType="server.main.dto.ServerMainDto">
+		SELECT user_id
+		FROM tp_account
+		WHERE id=#{id}
+		AND pwd=#{pwd}
+	</select>
 </mapper>
 
 

@@ -78,26 +78,21 @@
 				</section>
 				<section id="banner" class="signup-input-reform">
 				<div class="content">
-					<form action="signup.do" method="post" id="login_form">
+					<form action="signup.do" method="post">
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="text" class="form-control" name="id" id="id"
-								placeholder="Id">
+							<input type="text" name="id" placeholder="Id">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="password" class="form-control" name="pwd" id="pwd"
-								placeholder="Password">
+							<input type="password" name="pwd" id="pwd" placeholder="Password">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="text" class="form-control" name="name" id="name"
-								placeholder="Name">
+							<input type="text" name="name" id="name" placeholder="Name">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="text" class="form-control" name="phone" id="phone"
-								placeholder="Phone">
+							<input type="text" name="phone" id="phone" placeholder="Phone">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="email" class="form-control" name="email" id="email"
-								placeholder="Email">
+							<input type="email" name="email" id="email" placeholder="Email">
 						</div>
 						<div class="row uniform">
 							<div class="6u 12u$(xsmall) input-reform-bottom">
@@ -105,10 +100,10 @@
 								<label for="man">MAN</label>
 							</div>
 							<div class="6u 12u$(xsmall) input-reform-bottom">
-								<input type="radio" name="gender" id="female" value="M">
+								<input type="radio" name="gender" id="female" value="F">
 								<label for="female">FEMALE</label>
 							</div>
-							<div class="12u 12u$(xsmall)" style="text-align: center">
+							<div class="12u 12u$(xsmall)" style="text-align: center;">
 								<ul class="actions">
 									<li>
 										<input type="submit" value="회원가입" class="special button" />
@@ -116,8 +111,10 @@
 								</ul>
 							</div>
 						</div>
-
 					</form>
+				</div>
+
+					
 				</div>
 				</section>
 				<!-- Footer -->
@@ -132,6 +129,5 @@
 				</footer>
 			</div>
 		</div>
-	</div>
 </body>
 </html>
