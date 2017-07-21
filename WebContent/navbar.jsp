@@ -43,7 +43,7 @@
 			<span class="opener">여행사진</span>
 			<ul>
 				<li>
-					<a href="${pageContext.request.contextPath }/board/imgboardlist.do">2014-02-베트남</a>
+					<a href="picboard/imgboardlist.do">2014-02-베트남</a>
 				</li>
 				<li>
 					<a href="#" onclick="alert('준비중.. 누르지마')">2015-12-일본</a>

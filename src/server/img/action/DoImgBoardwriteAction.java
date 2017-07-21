@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import server.controller.Action;
 import server.controller.ActionForward;
 import server.dao.ServerDao;
+import server.img.dao.ImgDao;
+import server.img.dto.ImgDto;
 
 public class DoImgBoardwriteAction extends Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 글쓰기 저장 동작
-		String page_id = request.getParameter("page_id");
-		request.setAttribute("page_id", page_id);
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("ckValue");
 
@@ -43,25 +43,17 @@ public class DoImgBoardwriteAction extends Action {
 			pic_SaveUrl = matchSave.group(0);
 		}
 		System.out.println("pic_SaveUrl 추출 완료");
-		System.out.println("page_id: " + page_id);
 		System.out.println("title: " + title);
 		System.out.println("content: " + content);
 		System.out.println("pic_SaveUrl: " + pic_SaveUrl);
 		/*---------------------------------------------------------------*/
+		ImgDto dto=new ImgDto();
+		dto.setContent_title(title);
+		dto.setContent_content(content);
+		dto.setUser_id((Integer)request.getSession().getAttribute("id"));
+		dto.setPic(pic_SaveUrl);
+		ImgDao.getInst().insertPics(dto);
 
-		boolean insertPics = ServerDao.getInst().insertPics(request.getSession(), title, content, pic_SaveUrl);
-		if (insertPics == true) {
-			System.out.println("입력 정상");
-			return new ActionForward("/board/imgboardlist.do?page_id=" + page_id);
-			/*
-			 * response.sendRedirect(request.getContextPath()+
-			 * "/board/boardlist.jsp?page_id="+(String)request.getParameter(
-			 * "page_id"));
-			 */
-		} else {
-			System.out.println("입력 실패");
-			return new ActionForward("/board/imgboardlist.do?page_id=" + page_id);
-		}
+		return new ActionForward("/views/picboard/imgboardlist.do");
 	}
-
 }

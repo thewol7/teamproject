@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="img">
+	<sql id="imgColumns">
+		user_id,cont_id,content_title,content_content,pic,view_count,
+		TO_CHAR(content_date, 'YY.MM.DD HH24:MI') AS content_date
+	</sql>
+	<select id="getList" resultType="imgDto">
+		SELECT *
+		FROM tp_picboard
+		ORDER BY cont_id ASC
+	</select>
+	<insert id="insert" parameterType="imgDto">
+		INSERT INTO tp_picboard
+		VALUES(#{user_id},#{tp_picboard_seq.NEXTVAL},#{content_title},#{content_content}
+				#{pic},#{view_count})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

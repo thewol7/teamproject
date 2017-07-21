@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	String cPath = request.getContextPath();
-	String page_id = request.getParameter("page_id");
-%>
 <jsp:include page="/resource.jsp"></jsp:include>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,34 +23,27 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="<%=cPath%>/index.do?page_id=<%=page_id %>" class="logo">
-					<strong><%=page_id%></strong>님의 Blog
+				<a href="${pageContext.request.contextPath}/index.do" class="logo">
+					<strong>${info.name}</strong>님의 Blog
 				</a>
 				<ul class="icons">
-					<%
-						// test용.. != null / == null 바꿔서 로그인 로그아웃 표시 확인
-						if (request.getSession().getAttribute("id") == null) {
-					%>
-					<li>
+					<c:if test="${empty id}">
+						<li>
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="<%=cPath%>/loginform.do?page_id=<%=page_id %>" class="logo">
+						<a href="${pageContext.request.contextPath}/loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
-
-					<%
-						} else {
-					%>
-					<li>
-						<a href="<%=cPath%>/logout.do" class="logo">
+					</c:if>
+					<c:if test="${!empty id}">
+						<li>
+						<a href="${pageContext.request.contextPath}/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
-					<%
-						}
-					%>
+					</c:if>
 					<!-- 480사이즈 이하에서 사라지게 수정 필요 -->
 					<li class="space">
 						<i>|</i>
@@ -93,7 +82,7 @@
 				</header>
 				<!-- Banner -->
 				<section style="padding-top : 3em">
-				<form method="post" action="<%=cPath%>/board/imgboardwrite.do?page_id=<%=page_id %>">
+				<form method="post" action="imgboardwrite.do">
 					<div class="row uniform">
 						<div class="12u 12u$(xsmall)">
 							<input type="text" name="title" id="title" value=""
@@ -127,8 +116,6 @@
 						</div>
 					</div>
 				</form>
-
-
 				</section>
 			</div>
 		</div>
@@ -142,7 +129,7 @@
 </body>
 <script>
 	function backTolist() {
-		location.href = "imgboardlist.do?page_id=<%=page_id%>";
+		location.href = "imgboardlist.do";
 	};
 	
 	/* $("#submit").click(function(){ */

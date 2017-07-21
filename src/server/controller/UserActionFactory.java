@@ -8,7 +8,7 @@ import server.action.ToBoardlistPg;
 import server.action.ToBoardwritePg;
 import server.img.action.ToImgBoardDetailPg;
 import server.img.action.ToImgBoardUpdatePg;
-import server.img.action.PicboardListAction;
+import server.img.action.ImgboardListAction;
 import server.img.action.ToImgBoardwritePg;
 import server.action.ToVisBoardlistPg;
 import server.main.action.HomeAction;
@@ -55,8 +55,8 @@ public class UserActionFactory {
 			action = new LogoutAction();
 		} else if (command.equals("/board/boardlist")) {
 			action = new ToBoardlistPg();
-		} else if (command.equals("/board/imgboardlist")) {
-			action = new PicboardListAction();
+		} else if (command.equals("/picboard/imgboardlist")) {
+			action = new ImgboardListAction();
 		} else if (command.equals("/board/visboardlist")) {
 			action = new ToVisBoardlistPg();
 		} else if (command.equals("/board/boarddetail")) {
@@ -67,13 +67,13 @@ public class UserActionFactory {
 			action = new ToBoardwritePg();
 		} else if (command.equals("/board/boardupdateform")) {
 			action = new ToBoardUpdatePg();
-		} else if (command.equals("/board/imgboardwriteform")) {
+		} else if (command.equals("/picboard/imgboardwriteform")) {
 			action = new ToImgBoardwritePg();
-		}  else if (command.equals("/board/imgboardwrite")){
+		}  else if (command.equals("/picboard/imgboardwrite")){
 			action = new DoImgBoardwriteAction();
-		} else if(command.equals("/board/imgboarddetail")){
+		} else if(command.equals("/picboard/imgboarddetail")){
 			action = new ToImgBoardDetailPg();
-		} else if (command.equals("/board/imgboardupdateform")){
+		} else if (command.equals("/picboard/imgboardupdateform")){
 			action = new ToImgBoardUpdatePg();
 		}
 		return action;

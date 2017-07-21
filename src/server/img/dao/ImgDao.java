@@ -1,12 +1,11 @@
 package server.img.dao;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import server.img.dto.ImgDto;
 import server.mybatis.SqlMapConfig;
 
 public class ImgDao {
@@ -23,15 +22,33 @@ public class ImgDao {
 		return dao;
 	}
 	
-	public boolean insertPics(HttpSession session, String title, String content, String pic_url){ //, String pic_url
-		return false;
+	public void insertPics(ImgDto dto){
+		SqlSession session=factory.openSession();
+		
+		try{
+			session.insert("img.insert", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
 	}
 	
-	public ArrayList<Map<String, Object>> getPicboard(int page_id, int initqty, int qty){
-		return null;
+	public List<ImgDto> getList(){
+		SqlSession session=factory.openSession();
+		
+		List<ImgDto> list=null;
+		try{
+			list=session.selectList("img.getList");
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return list;
 	}
 	
-	public ArrayList<Map<String,Object>> getPicdetail(int cont_id){
+	public List<ImgDto> getPicdetail(int cont_id){
 		return null;
 	}
 	
@@ -39,12 +56,8 @@ public class ImgDao {
 		return false;
 	}
 	
-	public boolean deletePics(HttpSession session, int cont_id){
+	public boolean deletePics(int cont_id){
 		return false;
 	}
 
-	//for picboard
-	public double getMaxpage2(int page_id){
-		return 0;
-	}
 }
