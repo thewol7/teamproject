@@ -83,7 +83,7 @@
 			<a href="#" onclick="alert('준비중.. 누르지마')">파일자료실</a>
 		</li>
 		<li>
-			<a href="<%=cPath%>/board/visboardlist.do?page_id=<%=page_id%>">방명록</a>
+			<a href="guestboard/list.do">방명록</a>
 		</li>
 		<li>
 			<a

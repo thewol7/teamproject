@@ -16,6 +16,8 @@ import server.action.ToIndexPg;
 import server.action.ToLoginPg;
 import server.action.ToSignupPg;
 import server.action.ToVisBoardlistPg;
+import server.guestboard.action.GuestBoardInsertAction;
+import server.guestboard.action.GuestBoardListAction;
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
@@ -80,6 +82,10 @@ public class UserActionFactory {
 			action = new ToImgBoardDetailPg();
 		} else if (command.equals("/board/imgboardupdateform")){
 			action = new ToImgBoardUpdatePg();
+		} else if(command.equals("/guestboard/list")){
+			action = new GuestBoardListAction();
+		}else if(command.equals("/guestboard/insert")){
+			action = new GuestBoardInsertAction();
 		}
 		return action;
 	}
