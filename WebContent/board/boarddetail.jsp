@@ -1,3 +1,4 @@
+<%@page import="server.board.dao.PriboardDao"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="server.dao.ServerDao"%>
@@ -12,7 +13,7 @@
 	System.out.println("jsp cont_id :"+cont_id);
 	System.out.println("jsp page_id :"+page_id);
 	
-	ArrayList<Map<String, Object>> data=ServerDao.getInst().getPridetail(cont_id);
+	ArrayList<Map<String, Object>> data=PriboardDao.getInst().getPridetail(cont_id);
 	boolean updateviewcount=ServerDao.getInst().updateviewcount(cont_id);
 
 %>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	<select id="getList" parameterType="int" resultType="server.board.dto.PriboardDto">
+		SELECT *
+		FROM tp_priboard
+		WHERE user_id=#{page_id}
+	</select>
+	<select id="getCount" parameterType="int" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM tp_priboard
+		WHERE user_id=#{page_id}
+	</select>
+	<select id="getPageOwner" parameterType="int" resultType="String">
+		SELECT name 
+		FROM tp_account 
+		WHERE user_id=#{page_id}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

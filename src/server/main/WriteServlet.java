@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import server.dao.ServerDao;
+import server.board.dao.PriboardDao;
 
 @WebServlet("/board/write")
 public class WriteServlet extends HttpServlet{
@@ -24,7 +24,7 @@ public class WriteServlet extends HttpServlet{
 		String content_title=(String)request.getParameter("title");
 		String content_content=(String)request.getParameter("content");
 	
-		boolean writePriboard=ServerDao.getInst().writePriboard(request.getSession(), content_title, content_content);
+		boolean writePriboard=PriboardDao.getInst().writePriboard(request.getSession(), content_title, content_content);
 		
 		if(writePriboard==true){
 			//성공처리

@@ -1,21 +1,15 @@
 package server.controller;
 
-import server.action.DoBoardwriteAction;
 import server.action.DoImgBoardwriteAction;
-import server.action.DoLoginAction;
-import server.action.DoLogoutAction;
 import server.action.ToBoardDetailPg;
 import server.action.ToBoardUpdatePg;
-import server.action.ToBoardlistPg;
 import server.action.ToBoardwritePg;
 import server.action.ToImgBoardDetailPg;
 import server.action.ToImgBoardUpdatePg;
 import server.action.ToImgBoardlistPg;
 import server.action.ToImgBoardwritePg;
-import server.action.ToIndexPg;
-import server.action.ToLoginPg;
-import server.action.ToSignupPg;
 import server.action.ToVisBoardlistPg;
+import server.board.action.BoardListAction;
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
@@ -29,7 +23,7 @@ public class UserActionFactory {
 	private UserActionFactory() {
 	}
 
-	// 자신의 참조값을 리턴해주는 메소드
+	// �옄�떊�쓽 李몄“媛믪쓣 由ы꽩�빐二쇰뒗 硫붿냼�뱶
 	public static UserActionFactory getInstance() {
 		if (factory == null) {
 			factory = new UserActionFactory();
@@ -37,14 +31,14 @@ public class UserActionFactory {
 		return factory;
 	}
 
-	// 인자로 전달되는 command 를 수행할 Action type 객체를 리턴해주는
-	// 메소드
+	// �씤�옄濡� �쟾�떖�릺�뒗 command 瑜� �닔�뻾�븷 Action type 媛앹껜瑜� 由ы꽩�빐二쇰뒗
+	// 硫붿냼�뱶
 	/*
 	 * else if (command.equals("/board/boardlist")) { action = new
 	 * ToBoardlistPgAction(); }
 	 */
 	public Action action(String command) {
-		// Action 추상클래스 type 을 담을 지역변수 만들기
+		// Action 異붿긽�겢�옒�뒪 type �쓣 �떞�쓣 吏��뿭蹂��닔 留뚮뱾湲�
 		Action action = null;
 		if (command.equals("/home")) {
 			action = new HomeAction();
@@ -59,15 +53,13 @@ public class UserActionFactory {
 		} else if (command.equals("/logout")){
 			action = new LogoutAction();
 		} else if (command.equals("/board/boardlist")) {
-			action = new ToBoardlistPg();
+			action = new BoardListAction();
 		} else if (command.equals("/board/imgboardlist")) {
 			action = new ToImgBoardlistPg();
 		} else if (command.equals("/board/visboardlist")) {
 			action = new ToVisBoardlistPg();
 		} else if (command.equals("/board/boarddetail")) {
 			action = new ToBoardDetailPg();
-		} else if (command.equals("/board/boardwrite")) {
-			action = new DoBoardwriteAction();
 		} else if (command.equals("/board/boardwriteform")) {
 			action = new ToBoardwritePg();
 		} else if (command.equals("/board/boardupdateform")) {

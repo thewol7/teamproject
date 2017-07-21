@@ -6,14 +6,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String cPath = request.getContextPath();
-	int pageNum = (int) request.getAttribute("pageNum");
-	String page_name = (String) request.getAttribute("page_name");
-	double count = (int) request.getAttribute("pageNum");
-	int pages = (int) request.getAttribute("pages");
-	String page_id = (String) request.getAttribute("page_id");
-	
-	ArrayList<Map<String, Object>> data = ServerDao.getInst()
-			.getPriboard(Integer.parseInt(request.getParameter("page_id")), (pageNum - 1) * 15, pageNum * 15);
 %>
 <jsp:include page="/resource.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,7 +23,7 @@
 	function loginChk() {
 		if (<%=request.getSession().getAttribute("id")%> == null){
 			if(confirm("로그인이 필요합니다.")){
-		        location.href = "<%=cPath%>/loginform.do?page_id=<%=page_id%>";
+		        location.href = "<%=cPath%>/loginform.do";
 			}
 			return false;
 		} else {
@@ -50,34 +42,29 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="<%=cPath%>/index.do?page_id=<%=page_id %>" class="logo">
-					<strong><%=page_id%></strong>님의 Blog
+				<a href="<%=cPath%>/index.do" class="logo">
+					<strong>${id }</strong>님의 Blog
 				</a>
 				<ul class="icons">
-					<%
-						// test용.. != null / == null 바꿔서 로그인 로그아웃 표시 확인
-						if (request.getSession().getAttribute("id") == null) {
-					%>
+					<c:choose>
+						<c:when test="${empty id}">
 					<li>
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="<%=cPath%>/loginform.do?page_id=<%=page_id %>" class="logo">
+						<a href="<%=cPath%>/loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
-
-					<%
-						} else {
-					%>
+						</c:when>
+						<c:otherwise>
 					<li>
 						<a href="<%=cPath%>/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
-					<%
-						}
-					%>
+						</c:otherwise>
+					</c:choose>
 					<!-- 480사이즈 이하에서 사라지게 수정 필요 -->
 					<li class="space">
 						<i>|</i>
@@ -122,7 +109,7 @@
 					</div>
 					<div class="6u 6u(small)" style="text-align: right">
 						<h4>
-							<a href="<%=cPath%>/board/boardwriteform.do?page_id=<%=page_id%>"
+							<a href="${pageContext.request.contextPath }/board/boardwriteform.do"
 								class="button special" onclick="return loginChk()">새글쓰기</a>
 						</h4>
 					</div>
@@ -154,55 +141,42 @@
 							</tr>
 						</thead>
 						<tbody>
-							<%
-								if (data != null) {
-									for (int i = 0; i < data.size(); i++) {
-							%>
+						<c:forEach var="tmp" items="${data}">
 							<tr>
-								<td><%=data.get(i).get("cont_id")%></td>
+								<td>${tmp.cont_id }</td>
 								<td>
 									<!--  style="text-align:left" --> <a
-										href="boarddetail.do?cont_id=<%=data.get(i).get("cont_id")%>&page_id=<%=page_id%>"
+										href="boarddetail.do?cont_id=${tmp.cont_id}"
 										class="icon">
-										<%=data.get(i).get("content_title")%></a>
+										${tmp.content_title }</a>
 								</td>
-								<td><%=page_name%></td>
-								<td><%=data.get(i).get("content_date")%></td>
-								<td><%=data.get(i).get("view_count")%></td>
+								<td>${info.name }</td>
+								<td>${tmp.content_date }</td>
+								<td>${tmp.view_count }</td>
 							</tr>
-							<%
-								}
-								}
-							%> 
+						</c:forEach> 
 						</tbody>
 					</table>
 					<ul class="pagination" style="text-align: center">
 						<li>
 							<span class="button disabled">Prev</span>
 						</li>
-						<%
-							for (int i = 1; i <= pages; i++) {
-						%>
-						<%
-							if (pageNum == i) {
-						%>
-						<li>
-							<a class="page active"
-								href="boardlist.jsp?pageNum=<%=i%>&page_id=<%=page_id%>"><%=i%></a>
-						</li>
-						<%
-							} else {
-						%>
-						<li>
-							<a class="page"
-								href="boardlist.jsp?pageNum=<%=i%>&page_id=<%=page_id%>"><%=i%></a>
-						</li>
-						<%
-							}
-						%>
-						<%
-							}
-						%>
+					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<c:choose>
+							<c:when test="${i eq pageNum }">
+							<li>
+								<a class="page active"
+									href="boardlist.jsp?pageNum=${i}">${i}</a>
+							</li>
+							</c:when>
+							<c:otherwise>
+							<li>
+								<a class="page"
+									href="boardlist.jsp?pageNum=${i}">${i}</a>
+							</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 						<li>
 							<a href="#" class="button">Next</a>
 						</li>
