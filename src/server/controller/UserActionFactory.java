@@ -26,7 +26,6 @@ public class UserActionFactory {
 	private UserActionFactory() {
 	}
 
-	// �옄�떊�쓽 李몄“媛믪쓣 由ы꽩�빐二쇰뒗 硫붿냼�뱶
 	public static UserActionFactory getInstance() {
 		if (factory == null) {
 			factory = new UserActionFactory();
@@ -34,14 +33,7 @@ public class UserActionFactory {
 		return factory;
 	}
 
-	// �씤�옄濡� �쟾�떖�릺�뒗 command 瑜� �닔�뻾�븷 Action type 媛앹껜瑜� 由ы꽩�빐二쇰뒗
-	// 硫붿냼�뱶
-	/*
-	 * else if (command.equals("/board/boardlist")) { action = new
-	 * ToBoardlistPgAction(); }
-	 */
 	public Action action(String command) {
-		// Action 異붿긽�겢�옒�뒪 type �쓣 �떞�쓣 吏��뿭蹂��닔 留뚮뱾湲�
 		Action action = null;
 		if (command.equals("/home")) {
 			action = new HomeAction();

@@ -32,6 +32,10 @@ public class ServerFilter implements Filter{
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
+		if(request.getParameter("page_id")!=null){
+			request.getSession().setAttribute("page_id", Integer.parseInt(request.getParameter("page_id")));
+		}
+		
 		if(request.getSession().getAttribute("page_id")!=null){
 			request.setAttribute("page_id", request.getSession().getAttribute("page_id"));
 		}

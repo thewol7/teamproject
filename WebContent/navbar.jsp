@@ -22,7 +22,14 @@
 	</header>	 -->
 	<ul>
 		<li>
-			<a href="${pageContext.request.contextPath }/home.do">HOME</a>
+			<c:choose>
+				<c:when test="${not empty id }">
+					<a href="${pageContext.request.contextPath }/home.do?page_id=${id}">HOME</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath }/home.do">HOME</a>
+				</c:otherwise>
+			</c:choose>
 		</li>
 		<li>
 			<span class="opener">게시판</span>
