@@ -29,21 +29,22 @@ public class BoardListAction extends Action{
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		int totalRow = (int)ServerDao.getInst().getMaxpage((Integer)request.getSession().getAttribute("page_id"));
-		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		int totalPageCount=(int)Math.ceil((double)totalRow/(double)PAGE_ROW_COUNT);
 		int startPageNum=
 				1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		if(totalPageCount < endPageNum){
 			endPageNum=totalPageCount;
 		}
-		List<PriboardDto> data = PriboardDao.getInst()
-				.getPriboard((Integer)request.getSession().getAttribute("page_id"), startRowNum, endRowNum);
-		String name=PriboardDao.getInst().getPageOwner((Integer)request.getSession().getAttribute("page_id"));
+		PriboardDto dto=new PriboardDto();
+		dto.setUser_id((Integer)request.getSession().getAttribute("page_id"));
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		List<PriboardDto> data = PriboardDao.getInst().getPriboard(dto);
 		request.setAttribute("data", data);
 		request.setAttribute("startPageNum", startPageNum);
 		request.setAttribute("endPageNum", endPageNum);
 		request.setAttribute("totalPageCount", totalPageCount);
-		request.setAttribute("name", name);
 		return new ActionForward("/views/board/boardlist.jsp");
 	}
 

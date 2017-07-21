@@ -56,11 +56,11 @@ public class PriboardDao {
 		}
 			return name;
 	}
-	public List<PriboardDto> getPriboard(int page_id, int initqty, int qty){
+	public List<PriboardDto> getPriboard(PriboardDto dto){
 		SqlSession session=factory.openSession();
 		List<PriboardDto> data=null;
 		try{
-			data=session.selectList("board.getList",page_id);
+			data=session.selectList("board.getList",dto);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

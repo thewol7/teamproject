@@ -128,7 +128,7 @@
 				<!-- Break -->
 				<div class="12u$" style="text-align: right">
 					<ul class="actions">
-					<c:if test="${ not empty id }">
+					<c:if test="${ id eq page_id }">
 						<li style="text-align: right">
 							<input type="button" class="special" onclick="mvUpdateForm()" value="수정" />
 						</li>
