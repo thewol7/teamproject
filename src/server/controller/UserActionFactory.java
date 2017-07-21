@@ -1,15 +1,18 @@
 package server.controller;
 
 import server.action.DoImgBoardwriteAction;
-import server.action.ToBoardDetailPg;
-import server.action.ToBoardUpdatePg;
-import server.action.ToBoardwritePg;
 import server.action.ToImgBoardDetailPg;
 import server.action.ToImgBoardUpdatePg;
 import server.action.ToImgBoardlistPg;
 import server.action.ToImgBoardwritePg;
 import server.action.ToVisBoardlistPg;
+import server.board.action.BoardDeleteAction;
+import server.board.action.BoardDetailAction;
 import server.board.action.BoardListAction;
+import server.board.action.BoardUpdateAction;
+import server.board.action.BoardUpdateformAction;
+import server.board.action.BoardWriteAction;
+import server.board.action.BoardWriteformAction;
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
@@ -52,18 +55,24 @@ public class UserActionFactory {
 			action = new LoginAction();
 		} else if (command.equals("/logout")){
 			action = new LogoutAction();
-		} else if (command.equals("/board/boardlist")) {
+		} else if (command.equals("/views/board/boardlist")) {
 			action = new BoardListAction();
 		} else if (command.equals("/board/imgboardlist")) {
 			action = new ToImgBoardlistPg();
 		} else if (command.equals("/board/visboardlist")) {
 			action = new ToVisBoardlistPg();
-		} else if (command.equals("/board/boarddetail")) {
-			action = new ToBoardDetailPg();
-		} else if (command.equals("/board/boardwriteform")) {
-			action = new ToBoardwritePg();
-		} else if (command.equals("/board/boardupdateform")) {
-			action = new ToBoardUpdatePg();
+		} else if (command.equals("/views/board/boarddetail")) {
+			action = new BoardDetailAction();
+		} else if (command.equals("/views/board/boardwriteform")) {
+			action = new BoardWriteformAction();
+		} else if (command.equals("/views/board/boardwrite")){
+			action = new BoardWriteAction();
+		} else if (command.equals("/views/board/boardupdateform")) {
+			action = new BoardUpdateformAction();
+		} else if(command.equals("/views/board/boardupdate")){
+			action = new BoardUpdateAction();
+		} else if(command.equals("/views/board/boarddelete")){
+			action = new BoardDeleteAction();
 		} else if (command.equals("/board/imgboardwriteform")) {
 			action = new ToImgBoardwritePg();
 		}  else if (command.equals("/board/imgboardwrite")){

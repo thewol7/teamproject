@@ -5,6 +5,7 @@
 		SELECT *
 		FROM tp_priboard
 		WHERE user_id=#{page_id}
+		ORDER BY cont_id DESC
 	</select>
 	<select id="getCount" parameterType="int" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
@@ -16,6 +17,29 @@
 		FROM tp_account 
 		WHERE user_id=#{page_id}
 	</select>
+	<select id="getPriDetail" parameterType="server.board.dto.PriboardDto" resultType="server.board.dto.PriboardDto">
+		SELECT  cont_id,content_title, content_content,
+		TO_CHAR(content_date, 'YYYY-MM-DD') AS condate 
+		FROM tp_priboard 
+		WHERE cont_id=#{cont_id} AND user_id=#{user_id}
+	</select>
+	<update id="upviewCount" parameterType="int">
+		UPDATE tp_priboard 
+		SET view_count=view_count+1 
+		WHERE cont_id=#{cont_id}
+	</update>
+	<insert id="write" parameterType="server.board.dto.PriboardDto">
+		INSERT INTO tp_priboard VALUES(#{user_id}, tp_priboard_seq.NEXTVAL, #{content_title}, #{content_content}, DEFAULT, DEFAULT)
+	</insert>
+	<update id="update" parameterType="server.board.dto.PriboardDto">
+		UPDATE tp_priboard 
+		SET content_title=#{content_title}, content_content=#{content_content} 
+		WHERE user_id=#{user_id} AND cont_id=#{cont_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM tp_priboard 
+		WHERE user_id=#{user_id} AND cont_id=#{cont_id}
+	</delete>
 </mapper>
 
 

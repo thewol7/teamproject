@@ -21,10 +21,7 @@ public class BoardListAction extends Action{
 	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String page_id=request.getParameter("page_id");
-		//보여줄 페이지의 번호
 		int pageNum=1;
-		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어온다.
 		String strPageNum=request.getParameter("pageNum");
 		if(strPageNum != null){
 			pageNum=Integer.parseInt(strPageNum);
@@ -47,7 +44,7 @@ public class BoardListAction extends Action{
 		request.setAttribute("endPageNum", endPageNum);
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("name", name);
-		return new ActionForward("/board/boardlist.jsp");
+		return new ActionForward("/views/board/boardlist.jsp");
 	}
 
 }
