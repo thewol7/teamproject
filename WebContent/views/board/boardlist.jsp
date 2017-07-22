@@ -176,14 +176,12 @@
 						<c:choose>
 							<c:when test="${i eq pageNum }">
 							<li>
-								<a class="page active"
-									href="boardlist.do?pageNum=${i}">${i}</a>
+								<a class="page active" href="boardlist.do?pageNum=${i}">${i}</a>
 							</li>
 							</c:when>
 							<c:otherwise>
 							<li>
-								<a class="page"
-									href="boardlist.do?pageNum=${i}">${i}</a>
+								<a class="page"	href="boardlist.do?pageNum=${i}">${i}</a>
 							</li>
 							</c:otherwise>
 						</c:choose>

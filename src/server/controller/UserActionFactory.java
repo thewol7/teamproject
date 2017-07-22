@@ -13,6 +13,7 @@ import server.board.action.BoardUpdateAction;
 import server.board.action.BoardUpdateformAction;
 import server.board.action.BoardWriteAction;
 import server.board.action.BoardWriteformAction;
+import server.board.action.CommentInsertAction;
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
@@ -65,6 +66,8 @@ public class UserActionFactory {
 			action = new BoardUpdateAction();
 		} else if(command.equals("/views/board/boarddelete")){
 			action = new BoardDeleteAction();
+		} else if (command.equals("/views/board/boardcomment")) {
+			action = new CommentInsertAction();
 		} else if (command.equals("/board/imgboardwriteform")) {
 			action = new ToImgBoardwritePg();
 		}  else if (command.equals("/board/imgboardwrite")){

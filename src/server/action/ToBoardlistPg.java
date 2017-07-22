@@ -33,6 +33,6 @@ public class ToBoardlistPg extends Action{
 		request.setAttribute("pages", pages);
 		request.setAttribute("page_id", page_id);
 		
-		return new ActionForward("/board/boardlist.jsp?page_id="+page_id);
+		return new ActionForward("/board/boardlist.jsp");
 	}
 }
