@@ -29,7 +29,7 @@ function backTolist() {
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 --> <a
-					href="<%=cPath%>/home.do" class="logo"
+					href="${pageContext.request.contextPath }/home.do" class="logo"
 				>
 					<strong>${info.name }</strong>님의 Blog
 				</a>

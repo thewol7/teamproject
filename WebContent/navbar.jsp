@@ -95,7 +95,7 @@
 				폭풍으로</a>
 		</li>
 		<li>
-			<a href="random.do">랜덤 테스트</a>
+			<a href="${pageContext.request.contextPath }/random.do">랜덤 테스트</a>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath }/mgt/management.jsp">관리</a>

@@ -18,6 +18,7 @@ import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
 import server.main.action.LogoutAction;
+import server.main.action.RandomAction;
 import server.main.action.SignupAction;
 import server.main.action.SignupformAction;
 
@@ -78,6 +79,8 @@ public class UserActionFactory {
 			action = new CommentInsertAction();
 		} else if (command.equals("/views/board/imgboardcomment")) {
 			action = new CommentInsertAction();
+		} else if (command.equals("/random")){
+			action = new RandomAction();
 		}
 		return action;
 	}
