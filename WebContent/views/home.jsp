@@ -44,7 +44,7 @@
 					%>
 					<li>
 						<a href="logout.do" class="logo">
-							<span class="">로그아웃</span>
+							<span class="">로그아웃(${info.name })</span>
 						</a>
 					</li>
 					<%

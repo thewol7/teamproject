@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import server.dao.ServerDao;
 import server.main.dao.ServerMainDao;
 import server.main.dto.ServerMainDto;
 
@@ -51,7 +50,6 @@ public class ServerFilter implements Filter{
 			response.sendRedirect(request.getContextPath()+"/home.do");
 			return;
 		}
-		
 		ServerMainDto dto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("page_id"));
 		request.setAttribute("info", dto);
 		

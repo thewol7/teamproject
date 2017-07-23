@@ -20,8 +20,8 @@ public class CommentInsertAction extends Action{
 		//덧글 내에서의 그룹번호를 읽어온다. 
 		//null 이면 원글에 대한 덧글이고 아니면 덧글에 대한 덧글이다.
 		String comment_group=request.getParameter("comment_group");
+		// 일반게시판 id = 1, 이미지게시판id = 2
 		String board_id = request.getParameter("board_id");
-		//저장할 덧글 번호를 미리 읽어온다.
 		int seq=CommentDao.getInstance().priGetSequence();
 		
 		//새덧글 정보를 Dto 에 담는다. 일반게시판 id = 1, 이미지게시판id = 2
@@ -41,12 +41,30 @@ public class CommentInsertAction extends Action{
 			}
 			//DB 에 저장하고			
 			CommentDao.getInstance().priInsert(dto);
-			System.out.println("db저장완료");
+			System.out.println("pri comment db저장완료");
 			
 			//리다일렉트 하라고 응답한다.
 			return new ActionForward("/views/board/boarddetail.do?cont_id="+ref_group, true);
 		}else if(board_id.equals("2")){
+			CommentDto dto=new CommentDto();
+			dto.setNum(seq);
+			dto.setUser_id((int) user_id);
+			dto.setWriter(writer);
+			dto.setContent(content);
+			dto.setRef_group(ref_group);
+			if(comment_group==null){//원글에 대한 덧글인 경우
+				//덧글의 그룹번호를 덧글의 글번호와 같게 설정한다.
+				dto.setComment_group(seq);
+			}else{//덧글의 덧글인 경우 
+				//파라미터로 넘어온 덧글의 그룹번호를 넣어준다.
+				dto.setComment_group(Integer.parseInt(comment_group));
+			}
+			//DB 에 저장하고			
+			CommentDao.getInstance().picInsert(dto);
+			System.out.println("pic comment db저장완료");
 			
+			//리다일렉트 하라고 응답한다.
+			return new ActionForward("/views/board/imgboarddetail.do?cont_id="+ref_group, true);
 		}
 		return null;
 		

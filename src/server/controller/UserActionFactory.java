@@ -66,16 +66,18 @@ public class UserActionFactory {
 			action = new BoardUpdateAction();
 		} else if(command.equals("/views/board/boarddelete")){
 			action = new BoardDeleteAction();
-		} else if (command.equals("/views/board/boardcomment")) {
-			action = new CommentInsertAction();
 		} else if (command.equals("/board/imgboardwriteform")) {
 			action = new ToImgBoardwritePg();
-		}  else if (command.equals("/board/imgboardwrite")){
+		} else if (command.equals("/board/imgboardwrite")){
 			action = new DoImgBoardwriteAction();
 		} else if(command.equals("/board/imgboarddetail")){
 			action = new ToImgBoardDetailPg();
 		} else if (command.equals("/board/imgboardupdateform")){
 			action = new ToImgBoardUpdatePg();
+		} else if (command.equals("/views/board/boardcomment")) {
+			action = new CommentInsertAction();
+		} else if (command.equals("/views/board/imgboardcomment")) {
+			action = new CommentInsertAction();
 		}
 		return action;
 	}

@@ -148,33 +148,31 @@
 				</div>
 				<!-- ////////////// comment /////////////////////////////////////////////////// -->
 
-				<div class="comments">			
-						<div class="comment" style="margin-left: 50px">
+				<div class="comments">		
+					<c:forEach var="tmp" items="${commentList }">
+						<div class="comment" <c:if test="${tmp.num ne tmp.comment_group }">style="margin-left:50px"</c:if>>
+						<c:if test="${tmp.num ne tmp.comment_group }">
 							<div class="reply_icon"></div>
+						</c:if>
 							<ul class="alt">
 								<li>
-									<a class="icon" href="">${info.name }</a>
-									<i>2017-06-02</i>
+									<a class="icon" href="">#${tmp.writer }</a>
+									<i>${tmp.regdate }</i>
 									<a class="rep icon" href="javascript:">답글</a>
 								</li>
 								<li>
-									<p style="margin-bottom: 0 !important">Lorem ipsum dolor sit.</p>
+									<p style="margin-bottom: 0 !important">${tmp.content }</p>
 								</li>
 							</ul>
-							<form class="repForm" method="post" action="#">
+							<form class="repForm" method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
 								<ul class="alt">
-								<%-- <c:if test="${empty id }">
-									<li>로그인 후 글을 남겨주세요</li>
-								</c:if>
-								<c:if test="${not empty id }"> --%>
 									<li>
-										<a class="icon" href="">${info.name }</a>
+										<a class="icon" href="">#${info.name }</a>
 									</li>
-								<%-- </c:if> --%>
 								</ul>
 								<div class="row uniform">
 									<div class="10u 9u(medium) 9u(small) 12u$(xsmall)" style="padding-top: 0">
-										<textarea style="resize: none" name="content" id="content"	placeholder="COMMENT" rows="2"></textarea>
+										<textarea style="resize: none" name="content" id="content1"	placeholder="COMMENT" rows="2"></textarea>
 									</div>
 									<!-- Break -->
 									<div class="2u 2u(medium) 3u(small)">
@@ -184,12 +182,15 @@
 											<!-- 덧글 그룹 -->
 											<input type="hidden" name="ref_group" value="${result.cont_id }" />											
 											<input type="hidden" name="comment_group" value="${tmp.comment_group }" />
-											<input class="button small" type="submit" value="COMMENT" onclick="return loginChk()" />
+											<!-- 덧글 게시판 번호 일반 게시판 1, img게시판 2-->
+											<input type="hidden" name="board_id" value="1" /> 
+											<input class="button small" type="submit" value="COMMENT" onclick="return repChk1()" />
 										</ul>
 									</div>
 								</div>
 							</form>
 						</div>
+					</c:forEach>
 					<form method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
 						<ul class="alt">
 							<c:if test="${empty id }">
@@ -244,11 +245,29 @@
 	
 	// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
 	/* var Id = ${empty id}; */
+		// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
+	/* function repChk1() {
+		var content = $("#content1").val();
+		alert(content);
+		alert("repChk 누름");
+		if (content == ""){
+			alert(content);
+			return false;
+		} else {
+			return true;
+		}
+	} */
+	
 	function loginChk() {
+		var content = $("#content").val();
+		/* alert(content); */
 		if (${empty id}){
 			if(confirm("로그인이 필요합니다.")){
 		        location.href = "${pageContext.request.contextPath }/loginform.do";
 			}
+			return false;
+		} else if(content == ""){
+			alert("Comment를 입력해 주세요.");
 			return false;
 		} else {
 			return true;
@@ -258,7 +277,7 @@
 	$('.tools-container').hide();
 
 	//덧글 달기 혹은 취소 버튼을 눌렀을때 실행할 함수 등록 
-	$(".comments .rep").click(
+	$(".comment a").click(
 			function() {
 				if (${empty id}){
 					if(confirm("로그인이 필요합니다.")){
@@ -268,16 +287,16 @@
 				}
 				if ($(this).text() == "답글") {
 					console.log("누름");
-					/* $(this).text("취소").parent().parent().parent().find("form").slideToggle(); */
+					$(this).text("취소").parent().parent().parent().find("form").slideToggle();
 					/* $(".repForm").slideToggle().text("취소"); */
 					/* $(this).text("취소").toggleClass(".repForm"); */
-					$(".repForm").slideToggle()
-					$(this).text("취소");
+					/* $(".repForm").slideToggle()
+					$(this).text("취소"); */
 				} else {
 					console.log("누름");
-					/* $(this).text("답글").parent().parent().parent().find("form").slideToggle(); */
-					$(".repForm").slideToggle()
-					$(this).text("답글");
+					$(this).text("답글").parent().parent().parent().find("form").slideToggle();
+					/* $(".repForm").slideToggle()
+					$(this).text("답글"); */
 					/* $(this).text("답글").toggleClass(".repForm"); */
 				}
 			});

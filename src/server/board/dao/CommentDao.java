@@ -20,7 +20,7 @@ public class CommentDao {
 		}
 		return dao;
 	}
-	//새 덧글을 저장하는 메소드
+	// 일반 게시판 댓글 ------------------------------------------------------------------------
 	public void priInsert(CommentDto dto){
 		SqlSession session=factory.openSession(true);
 		try{
@@ -50,6 +50,44 @@ public class CommentDao {
 		int num=0;
 		try{
 			num=session.selectOne("Comment.priGetSequence");
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return num;
+	}
+	
+	// 이미지 게시판 댓글 ------------------------------------------------------------------------
+	public void picInsert(CommentDto dto){
+		SqlSession session=factory.openSession(true);
+		try{
+			session.insert("Comment.picInsert", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+	//덧글 목록을 리턴하는 메소드
+	public List<CommentDto> picGetList(int ref_group){
+		SqlSession session=factory.openSession();
+		List<CommentDto> list=null;
+		try{
+			list=session.selectList("Comment.picGetList", ref_group);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	//새 덧글의 글번호(sequence) 값을 얻어내서 리턴해주는 메소드
+	public int picGetSequence(){
+		SqlSession session=factory.openSession();
+		int num=0;
+		try{
+			num=session.selectOne("Comment.picGetSequence");
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
