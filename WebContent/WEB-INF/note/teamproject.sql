@@ -57,3 +57,34 @@ CREATE TABLE tp_visboard(
 CREATE SEQUENCE tp_visboard_seq;
 
 
+-- comment ------------------------------------------------ 
+CREATE TABLE tp_priboard_comment(
+    num NUMBER PRIMARY KEY, --덧글의 글번호 
+    user_id NUMBER(5) REFERENCES tp_account(user_id), -- 작성자 ${id}
+    writer  VARCHAR2(30) NOT NULL, -- 작성자 ${info.name}
+    content VARCHAR2(500),
+    ref_group NUMBER, -- 덧글 그룹. 원글의 con_id를 넣는다.
+    comment_group NUMBER, -- 덧글 내에서의 그룹
+    regdate DATE DEFAULT SYSDATE NOT NULL
+);
+
+CREATE TABLE tp_picboard_comment(    
+    num NUMBER PRIMARY KEY, --덧글의 글번호 
+    user_id NUMBER(5) REFERENCES tp_account(user_id), -- 작성자  ${id}
+    writer  VARCHAR2(30) NOT NULL, -- 작성자 ${info.name}
+    content VARCHAR2(500),
+    ref_group NUMBER, -- 덧글 그룹
+    comment_group NUMBER, -- 덧글 내에서의 그룹
+    regdate DATE DEFAULT SYSDATE NOT NULL
+);
+
+CREATE SEQUENCE tp_priboard_comment_seq NOCACHE;
+CREATE SEQUENCE tp_picboard_comment_seq NOCACHE;
+
+select * from tp_priboard_comment;
+DROP TABLE tp_priboard_comment;
+DROP TABLE tp_picboard_comment;
+select * from tp_account;
+commit
+
+
