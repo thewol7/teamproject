@@ -3741,3 +3741,19 @@ h1.h-header, h2.h-header, h3.h-header, h4.h-header, h5.h-header, h6.h-header
 body.cke_editable cke_editable_themed cke_contents_ltr p{
 	margin : 0;
 }
+
+/* 한줄로 길어질때 자동 줄 바꿈으로 표시되게 */
+.box>p, .box>p.image, .comments>p{
+	word-break:break-all;
+}
+
+/* 이미지 커질때 자동 사이즈 줄임 */
+.box>.image img{
+	display: block;
+	width: 100%;
+}
+
+/* 댓글 백그라운드 색상 지정 */
+div.comments{
+	background-color: f9f9f9;
+}

@@ -105,7 +105,7 @@
 				<section style="padding-top:2em">
 				<div class="row">
 					<div class="6u 6u(small)">
-						<h2 class="h-header">게시판</h2>
+						<h2 class="h-header">게시판</h2> <%--  / id : ${id } / page_id : ${page_id } --%>
 					</div>
 				<c:if test="${ id eq page_id  }">
 					<div class="6u 6u(small)" style="text-align: right">
