@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="guestboard">
-	<select id="getList" parameterType="int" resultType="server.guestboard.dto.GuestBoardDto">
-	SELECT a.user_id,v.writer_id,cont_id,content,TO_CHAR(content_date,'YYYY.MM.DD HH24:MI')AS content_date,name
-	FROM TP_VISBOARD v
-	JOIN TP_ACCOUNT a ON(a.user_id = v.writer_id)
-	WHERE v.user_id = #{page_id}
-	ORDER BY content_date DESC	
+	<select id="getList" parameterType="server.guestboard.dto.GuestBoardDto"  resultType="server.guestboard.dto.GuestBoardDto">
+	SELECT *
+	FROM (SELECT result1.*,ROWNUM rnum 
+			FROM (SELECT a.user_id,v.writer_id,cont_id,content,TO_CHAR(content_date,'YYYY.MM.DD HH24:MI')AS content_date,name
+					FROM TP_VISBOARD v
+					JOIN TP_ACCOUNT a ON(a.user_id = v.writer_id)
+					WHERE v.user_id = #{user_id}
+					ORDER BY cont_id DESC
+				    ) result1
+			     )
+	WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
 	<select id="getUserName" parameterType="int" resultType="server.guestboard.dto.GuestBoardDto">
@@ -27,7 +32,9 @@
 	VALUES(#{user_id},#{writer_id},tp_visboard_seq.NEXTVAL,#{content},SYSDATE)
 	
 	</insert>
-	
+	<delete id="delete" parameterType="int">
+	DELETE FROM TP_VISBOARD WHERE cont_id = #{cont_id}
+	</delete>
 </mapper>
 
 

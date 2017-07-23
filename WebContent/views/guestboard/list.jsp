@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>/views/guestboard/list.jsp</title>
+
 </head>
 <body>
 <!-- Wrapper -->
@@ -32,7 +33,7 @@
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
 						
-						<a href="/loginform.do?page_id=" class="logo">
+						<a href="${pageContext.request.contextPath }/loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 						
@@ -40,7 +41,7 @@
 					</c:if>
 					<c:if test="${not empty sessionScope.id }">
 					<li>
-						<a href="/logout.do" class="logo">
+						<a href="${pageContext.request.contextPath }/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
@@ -94,7 +95,9 @@
 					</c:if>
 					
 					<li>
-						<a class="icon" href="">${writernamedto.name }</a>
+						<a class="icon" href="">
+						<c:if test="${not empty writernamedto }">${writernamedto.name }</c:if>
+						</a>
 					</li>
 					
 				</ul>
@@ -102,14 +105,15 @@
 					<div class="row uniform">
 						<div class="12u 12u$(xsmall)" style="padding-top: 0">
 							<textarea style="resize: none" name="content" id="content"
-								placeholder="안부글을 남겨주세요" rows="3"></textarea>
+								placeholder="안부글을 남겨주세요" rows="3" <c:if test="${empty id }">onclick="loginck();"</c:if> ></textarea>
 						</div>
+						
 						<!-- Break -->
 						<div class="12u$" style="text-align: right">
 							<ul class="actions">
 								<li>
-									<input type="submit" value="확인" class="special"
-										/>
+									<input type="submit" value="확인" class="special"  <c:if test="${empty id }">style="display:none;"</c:if> />
+										
 								</li>
 								<!-- <input type="submit" value="확인" class="special"
 										onclick="return loginChk()" />
@@ -123,6 +127,7 @@
 				</form>
 				<div class="12u$">
 				<c:if test="${not empty list }">
+				
 					<c:forEach var = "tmp" items="${list }">
 					
 					<div class="box">
@@ -130,22 +135,58 @@
 							<li>
 								<a class="icon" href="">${tmp.name }</a>
 								<i>${tmp.content_date }</i>
+								<c:if test="${id eq tmp.writer_id }"><a href="${pageContext.request.contextPath }/guestboard/delete.do?cont_id=${tmp.cont_id}" style="float:right">삭제</a></c:if>
 							</li>
 							<li></li>
 						</ul>
 						<p>${tmp.content }</p>
 					</div>
 					</c:forEach>
+					
 					</c:if>
 				</div>
 				<ul class="pagination" style="text-align: center">
-					<li>
-						<span class="button disabled">Prev</span>
-					</li>
-					<li>
-						<a href="#" class="button">Next</a>
-					</li>
-				</ul>
+					<c:choose>
+						<c:when test="${startPageNum ne 1 }">
+							<li>
+								<span href="list.do?pageNum=${startPageNum-1 }" class="button disabled">Prev</span>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<span class="button disabled">Prev</span>
+							</li>							
+						</c:otherwise>					
+					</c:choose>	
+					
+					<c:forEach var="i" begin="${startPageNum}" end="${endPageNum}">
+						<c:choose>
+							<c:when test="${i eq pageNum}">
+								<li>
+									<a class="page active"
+										href="list.do?pageNum=${i}">${i}</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a class="page"
+										href="list.do?pageNum=${i}">${i}</a>
+								</li>
+							</c:otherwise>
+						</c:choose>						
+					</c:forEach>
+					<c:choose>
+						<c:when test="${endPageNum lt totalPageCount }">
+							<li>
+								<a href="list.do?pageNum=${endPageNum+1 }" class="button">Next</a>
+							</li>
+							
+						</c:when>
+						<c:otherwise>
+							<span class="button disabled">Next</span>
+						</c:otherwise>
+					</c:choose>	
+					</ul>
 				</section>
 			</div>
 		</div>
@@ -156,5 +197,17 @@
 		</div>
 
 	</div>
+<script>
+function loginck(){
+	if(confirm("로그인해야됨")){
+		location.href="${pageContext.request.contextPath}/loginform.do";
+	}else{
+		return;
+	}
+	//alert("로그인해주세요")
+	//location.href="${pageContext.request.contextPath}/guestboard/list.do";
+}
+
+</script>				
 </body>
 </html>

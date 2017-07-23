@@ -23,9 +23,9 @@ public class GuestBoardDao {
 	}
 	
 	//방명록 리스트를 불러오는 메소드
-	public List<GuestBoardDto> getList(int page_id){
+	public List<GuestBoardDto> getList(GuestBoardDto dto){
 		SqlSession session = factory.openSession();
-		List<GuestBoardDto> list = session.selectList("guestboard.getList",page_id);
+		List<GuestBoardDto> list = session.selectList("guestboard.getList",dto);
 		session.close();
 		return list;
 	}
@@ -58,5 +58,13 @@ public class GuestBoardDao {
 		
 		session.close();
 		
+	}
+	
+	
+	//글을 삭제하는 메소드(delete)
+	public void delete(int cont_id){
+		SqlSession session = factory.openSession(true);
+		session.delete("guestboard.delete",cont_id);
+		session.close();
 	}
 }

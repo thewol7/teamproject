@@ -6,6 +6,7 @@ import server.action.ToImgBoardUpdatePg;
 import server.action.ToImgBoardlistPg;
 import server.action.ToImgBoardwritePg;
 import server.action.ToVisBoardlistPg;
+import server.guestboard.action.GuestBoardDeleteAction;
 import server.guestboard.action.GuestBoardInsertAction;
 import server.guestboard.action.GuestBoardListAction;
 import server.board.action.BoardDeleteAction;
@@ -79,6 +80,8 @@ public class UserActionFactory {
 			action = new GuestBoardListAction();
 		}else if(command.equals("/guestboard/insert")){
 			action = new GuestBoardInsertAction();
+		}else if(command.equals("/guestboard/delete")){
+			action = new GuestBoardDeleteAction();
 		}
 		return action;
 	}
