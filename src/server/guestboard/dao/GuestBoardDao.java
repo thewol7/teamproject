@@ -72,7 +72,7 @@ public class GuestBoardDao {
 		SqlSession session=factory.openSession();
 		int count=0;
 		try{
-			count=session.selectOne("guestboard.getCount",page_id);
+			count=session.selectOne("guestboard.getMaxpage",page_id);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{

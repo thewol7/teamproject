@@ -36,7 +36,7 @@
 	DELETE FROM TP_VISBOARD WHERE cont_id = #{cont_id}
 	</delete>
 	
-	<select id="getCount" parameterType="int" resultType="int">
+	<select id="getMaxpage" parameterType="int" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM tp_visboard
 		WHERE user_id=#{page_id}
