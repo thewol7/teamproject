@@ -168,7 +168,7 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<span href="boardlist.do?pageNum=${startPageNum-1 }" class="button disabled">Prev</span>
+							<a href="boardlist.do?pageNum=${startPageNum-1 }" class="button">Prev</a>
 						</li>
 					</c:otherwise>
 					</c:choose>	

@@ -28,7 +28,7 @@ public class BoardListAction extends Action{
 		}
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
-		int totalRow = (int)ServerDao.getInst().getMaxpage((Integer)request.getSession().getAttribute("page_id"));
+		int totalRow = (int)PriboardDao.getInst().getMaxpage((Integer)request.getSession().getAttribute("page_id"));
 		int totalPageCount=(int)Math.ceil((double)totalRow/(double)PAGE_ROW_COUNT);
 		int startPageNum=
 				1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -42,6 +42,7 @@ public class BoardListAction extends Action{
 		dto.setEndRowNum(endRowNum);
 		List<PriboardDto> data = PriboardDao.getInst().getPriboard(dto);
 		request.setAttribute("data", data);
+		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("startPageNum", startPageNum);
 		request.setAttribute("endPageNum", endPageNum);
 		request.setAttribute("totalPageCount", totalPageCount);

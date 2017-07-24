@@ -67,4 +67,18 @@ public class GuestBoardDao {
 		session.delete("guestboard.delete",cont_id);
 		session.close();
 	}
+	//총 방명록갯수를 받아오는 메소드
+	public double getMaxpage(int page_id){
+		SqlSession session=factory.openSession();
+		int count=0;
+		try{
+			count=session.selectOne("guestboard.getCount",page_id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return count;
+	}
+	
 }

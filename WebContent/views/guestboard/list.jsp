@@ -19,7 +19,7 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="/index.do?page_id=" class="logo">
+				<a href="${pageContext.request.contextPath }/index.jsp" class="logo">
 					<strong>${usernamedto.name }</strong>님의 Blog
 				</a>
 				<ul class="icons">
@@ -149,12 +149,12 @@
 					<c:choose>
 						<c:when test="${startPageNum ne 1 }">
 							<li>
-								<span href="list.do?pageNum=${startPageNum-1 }" class="button disabled">Prev</span>
+								<a href="list.do?pageNum=${startPageNum-1 }" class="button">Prev</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li>
-								<span class="button disabled">Prev</span>
+								<a class="button disabled">Prev</a>
 							</li>							
 						</c:otherwise>					
 					</c:choose>	
@@ -183,7 +183,7 @@
 							
 						</c:when>
 						<c:otherwise>
-							<span class="button disabled">Next</span>
+							<a class="button disabled">Next</a>
 						</c:otherwise>
 					</c:choose>	
 					</ul>
