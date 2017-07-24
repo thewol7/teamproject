@@ -27,8 +27,8 @@ CREATE TABLE tp_picboard(
 	user_id NUMBER(5) REFERENCES tp_account(user_id),
 	cont_id NUMBER(5) PRIMARY KEY,
 	content_title VARCHAR2(50) NOT NULL,
-	content_content VARCHAR2(300),
-	pic VARCHAR2(100) NOT NULL,
+	content_content CLOB,
+	pic CLOB NOT NULL,
 	view_count NUMBER(9) DEFAULT 0 NOT NULL,
 	content_date DATE DEFAULT SYSDATE NOT NULL
 );

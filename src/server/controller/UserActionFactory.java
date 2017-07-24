@@ -1,10 +1,12 @@
 package server.controller;
 
-import server.action.DoImgBoardwriteAction;
-import server.action.ToImgBoardDetailPg;
-import server.action.ToImgBoardUpdatePg;
-import server.action.ToImgBoardlistPg;
-import server.action.ToImgBoardwritePg;
+import server.img.action.ImgBoardwriteAction;
+import server.img.action.ImgBoardDeleteAction;
+import server.img.action.ImgBoardDetail;
+import server.img.action.ImgBoardUpdateAction;
+import server.img.action.ImgBoardUpdateformAction;
+import server.img.action.ImgboardListAction;
+import server.img.action.ImgBoardwriteformAction;
 import server.action.ToVisBoardlistPg;
 import server.guestboard.action.GuestBoardDeleteAction;
 import server.guestboard.action.GuestBoardInsertAction;
@@ -54,8 +56,8 @@ public class UserActionFactory {
 			action = new LogoutAction();
 		} else if (command.equals("/views/board/boardlist")) {
 			action = new BoardListAction();
-		} else if (command.equals("/board/imgboardlist")) {
-			action = new ToImgBoardlistPg();
+		} else if (command.equals("/views/picboard/imgboardlist")) {
+			action = new ImgboardListAction();
 		} else if (command.equals("/board/visboardlist")) {
 			action = new ToVisBoardlistPg();
 		} else if (command.equals("/views/board/boarddetail")) {
@@ -70,14 +72,6 @@ public class UserActionFactory {
 			action = new BoardUpdateAction();
 		} else if(command.equals("/views/board/boarddelete")){
 			action = new BoardDeleteAction();
-		} else if (command.equals("/board/imgboardwriteform")) {
-			action = new ToImgBoardwritePg();
-		} else if (command.equals("/board/imgboardwrite")){
-			action = new DoImgBoardwriteAction();
-		} else if(command.equals("/board/imgboarddetail")){
-			action = new ToImgBoardDetailPg();
-		} else if (command.equals("/board/imgboardupdateform")){
-			action = new ToImgBoardUpdatePg();
 		} else if(command.equals("/guestboard/list")){
 			action = new GuestBoardListAction();
 		}else if(command.equals("/guestboard/insert")){
@@ -90,6 +84,18 @@ public class UserActionFactory {
 			action = new CommentInsertAction();
 		} else if (command.equals("/random")){
 			action = new RandomAction();
+		} else if (command.equals("/views/picboard/imgboardwriteform")) {
+			action = new ImgBoardwriteformAction();
+		}  else if (command.equals("/views/picboard/imgboardwrite")){
+			action = new ImgBoardwriteAction();
+		} else if(command.equals("/views/picboard/imgboarddetail")){
+			action = new ImgBoardDetail();
+		} else if (command.equals("/views/picboard/imgboardupdateform")){
+			action = new ImgBoardUpdateformAction();
+		} else if (command.equals("/views/picboard/imgboardupdate")){
+			action = new ImgBoardUpdateAction();
+		} else if(command.equals("/views/picboard/imgboarddelete")){
+			action = new ImgBoardDeleteAction(); 
 		}
 		return action;
 	}

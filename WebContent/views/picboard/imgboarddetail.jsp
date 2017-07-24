@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-	String cPath = request.getContextPath();
-%>
 <jsp:include page="/resource.jsp"></jsp:include>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,10 +10,18 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <title>Insert title here</title>
 </head>
-<style>
-</style>
+<script>
+	function backTolist() {
+		location.href = "${pageContext.request.contextPath}/views/picboard/imgboardlist.do?";
+	};
+	function mvUpdateForm() {
+		location.href = "${pageContext.request.contextPath}/views/picboard/imgboardupdateform.do?cont_id=${cont_id}";
+	}
+	function deletePic() {
+		location.href = "${pageContext.request.contextPath}/views/picboard/imgboarddelete.do?cont_id=${cont_id}";
+	}
+</script>
 <body>
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -28,29 +31,28 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="${pageContext.request.contextPath }/home.do" class="logo">
-					<strong>${info.name }</strong>님의 Blog
+				<a href="${pageContext.request.contextPath}/index.jsp" class="logo">
+					<strong>${info.name}</strong>님의 Blog
 				</a>
 				<ul class="icons">
-					<c:choose>
-						<c:when test="${empty id}">
+					<c:if test="${empty id}">
 					<li>
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="${pageContext.request.contextPath }/loginform.do" class="logo">
+						<a href="${pageContext.request.contextPath}/loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
-						</c:when>
-						<c:otherwise>
+					
+					</c:if>
+					<c:if test="${!empty id}">
 					<li>
-						<a href="${pageContext.request.contextPath }/logout.do" class="logo">
+						<a href="${pageContext.request.contextPath}/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
-						</c:otherwise>
-					</c:choose>
+					</c:if>
 					<!-- 480사이즈 이하에서 사라지게 수정 필요 -->
 					<li class="space">
 						<i>|</i>
@@ -89,43 +91,52 @@
 				</header>
 				<!-- Banner -->
 				<section style="padding-top : 3em">
-				<form method="post" action="${pageContext.request.contextPath }/views/board/boardwrite.do">
-					<div class="row uniform">
-						<div class="12u 12u$(xsmall)">
-							<input type="text" name="title" id="title" placeholder="제목" maxlength="50"/>
-						</div>
-						<!-- Break -->
-						<div class="12u$">
+				<div class="box 12u$" style="padding-bottom: 22px; min-height: 500px;">
+					<div>
+					<c:if test="${dto.prevNum ne 0 }">
+						<a href="imgboarddetail.do?cont_id=${dto.prevNum }">이전글</a> |
+					</c:if>
+					<c:if test="${dto.nextNum ne 0 }">
+						<a href="imgboarddetail.do?cont_id=${dto.nextNum }">다음글</a>
+					</c:if>
+					</div>
+					
+					<h4 style="margin-bottom:0">
+						<p>${dto.content_title}</p>
+					</h4>
+					<ul class="alt">
+						<li></li>
+						<li></li>
+					</ul>
+					<%-- <div class="12u$">
 							<textarea name="ckContent" id="ckContent" placeholder="content"
 								rows="20"></textarea>
-							<script type="text/javascript">				
-								/* 개인 키값 입력 */
+							<script type="text/javascript">
 								UPLOADCARE_PUBLIC_KEY = '07c3ee3ce257b7a7ce86';
-								CKEDITOR.replace('ckContent', {								
-								    uploadcare: {
-								        multiple: true
-								    }
-								});
+								CKEDITOR.replace('ckContent');
+								/* CKEDITOR.config.toolbarCanCollapse = false; */
+								CKEDITOR.instances.ckContent.setData('<p><%=data.get(0).get("content_content") %></p>');
+								/* CKEDITOR.config.readOnly = true; */
 							</script>
-						<%-- filebrowserImageUploadUrl : '${pageContext.request.contextPath}/upload/upload.jsp?type=image&realUrl=${pageContext.request.contextPath}/upload' --%>
-						</div>
-						<!-- Break -->
-						<div class="12u$" style="text-align: right">
-							<ul class="actions">
-								<li>
-									<!-- <input type="submit" value="확인" class="special" /> -->
-									<input type="hidden" name="ckValue" id="ckValue" value="" />
-									<input type="submit" onclick="return chkData()" value="확인" class="special subBtn" id="submit" />	
-									
-								</li>
-								<li>
-									<input type="reset" onclick="backTolist()" value="취소" />
-								</li>
-							</ul>
-						</div>
-					</div>
-				</form>
-
+						</div>  --%>
+					<p>${dto.content_content }</p>
+				</div>
+				<!-- Break -->
+				<div class="12u$" style="text-align: right">
+					<ul class="actions">
+						<c:if test="${!empty id}">
+						<li style="text-align: right">
+							<input type="button" class="special" onclick="mvUpdateForm()" value="수정" />
+						</li>
+						<li style="text-align: right">
+							<input type="button" class="special" onclick="deletePic()" value="삭제" />
+						</li>
+						</c:if>
+						<li>
+							<input type="reset" onclick="backTolist()" value="돌아가기" />
+						</li>					
+					</ul>
+				</div>
 				</section>
 			</div>
 		</div>
@@ -137,34 +148,4 @@
 
 	</div>
 </body>
-<script>
-
-	$("form").on("submit",function(){
-		if($("#title").val()==""){
-			alert("제목이 비었습니다.");
-			return false;
-		}
-		
-	});
-
-	function backTolist() {
-		location.href = "boardlist.do";
-	};
-	
-	/* $("#submit").click(function(){ */
-		function chkData(){
-			/* onclick 이벤트 발생했을때 ckeditor 에 데이터를 확인함 */
-			var ckData = CKEDITOR.instances.ckContent.getData();
-			
-			/* if(ckData == null){
-				alert("ckData null");
-			}else{
-				alert("ckData:"+ckData);	
-			} */
-				
-			/* 데이터가 없을 경우 알람 띄우기 */
-		
-		}
-	 /* });  */
-</script>
 </html>
