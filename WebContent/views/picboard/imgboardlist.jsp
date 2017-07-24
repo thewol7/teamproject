@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="/resource.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
@@ -88,7 +89,7 @@
 					</div>
 					<div class="6u 6u(small)" style="text-align: right">
 						<h4>
-							<a href="imgboardwriteform.do"
+							<a href="${pageContext.request.contextPath}/views/picboard/imgboardwriteform.do"
 								class="button special" onclick="return loginChk()">새글쓰기</a>
 						</h4>
 					</div>
@@ -103,13 +104,13 @@
 								<c:forEach var="tmp" items="${data}">
 									<div class='
 										<c:choose>	
-											<c:when test="${tmp.length eq 1}">
+											<c:when test="${fn:length(data) eq 1}">
 												12u
 											</c:when>
-											<c:when test="${tmp.length eq 2}">
+											<c:when test="${fn:length(data) eq 2}">
 												6u 6u(medium) 6u(small) 12u(xsmall)
 											</c:when>
-											<c:when test="${tmp.length eq 3}">
+											<c:when test="${fn:length(data) eq 3}">
 												4u 6u(medium) 6u(small) 12u(xsmall)
 											</c:when>
 											<c:otherwise>
@@ -119,11 +120,11 @@
 									'>
 								
 								<span class="image fit img-panel">	
-									<a href="imgboarddetail.do?cont_id=${cont_id }" class="image">
+									<a href="imgboarddetail.do?cont_id=${tmp.cont_id}" class="image">
 										<img src="${tmp.pic}" alt="" />
 									</a>
 									<h5>
-										<a class="icon"	href="imgboarddetail.do?cont_id=${tmp.cont_id }">${tmp.content_content }</a>
+										<a class="icon"	href="imgboarddetail.do?cont_id=${tmp.cont_id }">${tmp.content_title}</a>
 									</h5>
 									<ul class="alt">
 										<li style="border-top: 1px solid black"></li>
@@ -142,6 +143,47 @@
 				</div>
 				</section>
 				<!-- pagination -->
+				<ul class="pagination">
+					<c:choose>
+						<c:when test="${startPageNum ne 1 }">
+							<li>
+								<a href="imgboardlist.do?pageNum=${startPageNum-1 }">&laquo;</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="disabled">
+								<a href="javascript:">&laquo;</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<c:choose>
+							<c:when test="${i eq pageNum }">
+								<li class="active">
+									<a href="imgboardlist.do?pageNum=${i }">${i }</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="imgboardlist.do?pageNum=${i }">${i }</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${endPageNum lt totalPageCount }">
+							<li>
+								<a href="imgboardlist.do?pageNum=${endPageNum+1 }">&raquo;</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="disabled">
+								<a class="muted" href="javascript:">&raquo;</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
 			</div>
 		</div>
 		

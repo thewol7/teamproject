@@ -62,7 +62,7 @@ public class ServerMainDao {
 		SqlSession session=factory.openSession();
 		List<ServerMainDto> users=session.selectList("main.getRandomPage");
 		session.close();
-		if(users!=null){
+		if(users.size()>0){
 			Random ran=new Random();
 			int result=ran.nextInt(users.size());
 			return users.get(result);

@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="server/mybatis/MainMapper.xml"/>
 		<mapper resource="server/mybatis/ImgMapper.xml"/>
+		<mapper resource="server/mybatis/BoardMapper.xml"/>
 	</mappers>	
 </configuration>
 

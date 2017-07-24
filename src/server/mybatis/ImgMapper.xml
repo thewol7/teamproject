@@ -5,16 +5,49 @@
 		user_id,cont_id,content_title,content_content,pic,view_count,
 		TO_CHAR(content_date, 'YY.MM.DD HH24:MI') AS content_date
 	</sql>
-	<select id="getList" resultType="imgDto">
-		SELECT *
-		FROM tp_picboard
-		ORDER BY cont_id ASC
+	<select id="getList" resultType="imgDto" parameterType="imgDto">
+	SELECT *	
+		FROM (SELECT result1.*,ROWNUM rnum 
+		  FROM (SELECT <include refid="imgColumns"/>
+				FROM tp_picboard
+			    ORDER BY cont_id DESC
+			    ) result1
+	     )
+	WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	<insert id="insert" parameterType="imgDto">
 		INSERT INTO tp_picboard
-		VALUES(#{user_id},#{tp_picboard_seq.NEXTVAL},#{content_title},#{content_content}
-				#{pic},#{view_count})
+		VALUES(#{user_id},tp_picboard_seq.NEXTVAL,#{content_title},#{content_content},
+				#{pic},#{view_count},SYSDATE)
 	</insert>
+	<select id="getPicdetail" parameterType="int" resultType="imgDto">
+		SELECT result1.*
+		FROM
+			(SELECT <include refid="imgColumns"/>,
+			LAG(cont_id,1,0) OVER(ORDER BY num DESC) prevNum,
+			LEAD(cont_id,1,0) OVER(ORDER BY num DESC) nextNum
+			FROM tp_picboard
+			ORDER BY cont_id DESC) result1
+		WHERE cont_id=#{cont_id}
+	</select>
+	<update id="update" parameterType="imgDto">
+		UPDATE tp_picboard
+		SET content_title=#{content_title}, content_content=#{content_content}
+		WHERE cont_id=#{cont_id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM tp_picboard
+		WHERE cont_id=#{cont_id}
+	</delete>
+	<update id="increaseViewCount" parameterType="int">
+		UPDATE tp_picboard
+		SET view_count=view_count+1
+		WHERE cont_id=#{cont_id}
+	</update>
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM tp_picboard
+	</select>
 </mapper>
 
 

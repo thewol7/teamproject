@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	String cPath = request.getContextPath();
+	String page_id = request.getParameter("page_id");
 %>
 <jsp:include page="/resource.jsp"></jsp:include>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -26,29 +27,34 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="<%=cPath%>/index.do" class="logo">
-					<strong>${info.name }</strong>님의 Blog
+				<a href="<%=cPath%>/index.do?page_id=<%=page_id %>" class="logo">
+					<strong><%=page_id%></strong>님의 Blog
 				</a>
 				<ul class="icons">
-					<c:choose>
-						<c:when test="${empty id}">
+					<%
+						// test용.. != null / == null 바꿔서 로그인 로그아웃 표시 확인
+						if (request.getSession().getAttribute("id") == null) {
+					%>
 					<li>
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="<%=cPath%>/loginform.do" class="logo">
+						<a href="<%=cPath%>/loginform.do?page_id=<%=page_id %>" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
-						</c:when>
-						<c:otherwise>
+
+					<%
+						} else {
+					%>
 					<li>
 						<a href="<%=cPath%>/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
-						</c:otherwise>
-					</c:choose>
+					<%
+						}
+					%>
 					<!-- 480사이즈 이하에서 사라지게 수정 필요 -->
 					<li class="space">
 						<i>|</i>
@@ -87,15 +93,15 @@
 				</header>
 				<!-- Banner -->
 				<section style="padding-top : 3em">
-				<form method="post" action="${pageContext.request.contextPath }/views/board/boardwrite.do">
+				<form method="post" action="<%=cPath%>/board/imgboardwrite.do?page_id=<%=page_id %>">
 					<div class="row uniform">
 						<div class="12u 12u$(xsmall)">
-							<input type="text" name="title" id="title" placeholder="제목" maxlength="50"/>
+							<input type="text" name="title" id="title" value=""
+								placeholder="제목" maxlength="50"/><!-- maxlength="50" -->
 						</div>
-						<!-- Break -->
 						<div class="12u$">
-							<textarea name="ckContent" id="ckContent" placeholder="content"
-								rows="20"></textarea>
+							<textarea name="ckContent" id="ckContent"
+								placeholder="Enter your message" rows="20"></textarea>
 							<script type="text/javascript">				
 								/* 개인 키값 입력 */
 								UPLOADCARE_PUBLIC_KEY = '07c3ee3ce257b7a7ce86';
@@ -105,7 +111,6 @@
 								    }
 								});
 							</script>
-						<%-- filebrowserImageUploadUrl : '${pageContext.request.contextPath}/upload/upload.jsp?type=image&realUrl=${pageContext.request.contextPath}/upload' --%>
 						</div>
 						<!-- Break -->
 						<div class="12u$" style="text-align: right">
@@ -113,8 +118,7 @@
 								<li>
 									<!-- <input type="submit" value="확인" class="special" /> -->
 									<input type="hidden" name="ckValue" id="ckValue" value="" />
-									<input type="submit" onclick="return chkData()" value="확인" class="special" id="submit" />	
-									
+									<input type="submit" onclick="return chkData()" value="확인" class="special" id="submit" />		
 								</li>
 								<li>
 									<input type="reset" onclick="backTolist()" value="취소" />
@@ -137,25 +141,39 @@
 	</div>
 </body>
 <script>
-
 	function backTolist() {
-		location.href = "boardlist.do";
+		location.href = "imgboardlist.do?page_id=<%=page_id%>";
 	};
 	
 	/* $("#submit").click(function(){ */
-		function chkData(){
-			/* onclick 이벤트 발생했을때 ckeditor 에 데이터를 확인함 */
-			var ckData = CKEDITOR.instances.ckContent.getData();
+	function chkData(){
+		/* onclick 이벤트 발생했을때 ckeditor 에 데이터를 확인함 */
+		var ckData = CKEDITOR.instances.ckContent.getData();
+		var findImg = "img";
 			
-			/* if(ckData == null){
-				alert("ckData null");
+		/* 데이터가 없을 경우 알람 띄우기 */
+		if(CKEDITOR.instances.ckContent.getData().length < 1){
+			alert("내용을 입력해 주세요");
+			return false;
+		/* img 문자가 있는지 여부를 확인(이미지 삽입 여부). 
+		finxImg에 들어있는 문자열의 위치를 숫자로 알려주며 
+		없을 경우 -1을 반환 한다..*/
+		}else if(ckData.indexOf(findImg) != -1){
+			/* 데이터가 있을 경우 데이터값을 input에 담아서 넘김 */
+			document.getElementById("ckValue").value=ckData;
+			if(document.getElementById("ckValue").value == null){
+				alert("ckValue null!!");
+				return false;
 			}else{
-				alert("ckData:"+ckData);	
-			} */
-				
-			/* 데이터가 없을 경우 알람 띄우기 */
-		
+				alert("ckValue:"+document.getElementById("ckValue").value
+						+" &&title:"+document.getElementById("title").value);
+				return true;
+			}	
+		}else{
+			alert("이미지를 추가해주세요.");
+			return false;
 		}
-	 /* });  */
+	}
+ /* });  */
 </script>
 </html>

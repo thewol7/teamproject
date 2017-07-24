@@ -1,12 +1,31 @@
+<%@page import="server.dao.ServerDao"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String cPath = request.getContextPath();
+
+	int cont_id = (int) request.getAttribute("cont_id");
+	int page_id = (int) request.getAttribute("page_id");
+
+	System.out.println("jsp cont_id :" + cont_id);
+	System.out.println("jsp page_id :" + page_id);
+
+	ArrayList<Map<String, Object>> data = ServerDao.getInst().getPicdetail(cont_id);
+	boolean updateviewcount = ServerDao.getInst().updateviewcount(cont_id);
+%>
 <jsp:include page="/resource.jsp"></jsp:include>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+function backTolist() {
+	location.href = "<%=cPath%>/board/imgboardlist.do?page_id=<%=page_id %>";
+};
+</script>
 <body>
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -17,29 +36,35 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 --> <a
-					href="${pageContext.request.contextPath}/index.jsp" class="logo"
+					href="<%=cPath%>/index.jsp?page_id=<%=page_id%>" class="logo"
 				>
-					<strong>${info.name}</strong>님의 Blog
+					<strong><%=page_id%></strong>님의 Blog
 				</a>
 				<ul class="icons">
-					<c:if test="${empty id}">
+					<%
+						// test용.. != null / == null 바꿔서 로그인 로그아웃 표시 확인
+						if (request.getSession().getAttribute("id") == null) {
+					%>
 					<li>
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="${pageContext.request.contextPath}/loginform.do" class="logo">
+						<a href="<%=cPath%>/loginform.do?page_id=<%=page_id%>" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
-					</c:if>
 
-					<c:if test="${!empty id}">
-						<li>
-						<a href="${pageContext.request.contextPath}/logout.do" class="logo">
+					<%
+						} else {
+					%>
+					<li>
+						<a href="<%=cPath%>/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
-					</c:if>
+					<%
+						}
+					%>
 					<!-- 480사이즈 이하에서 사라지게 수정 필요 -->
 					<li class="space">
 						<i>|</i>
@@ -76,16 +101,16 @@
 				</header>
 				<!-- Banner -->
 				<section style="padding-top : 3em">
-				<form method="post" action="${pageContext.request.contextPath}/views/picboard/imgboardupdate.do?cont_id=${cont_id}">
+				<form method="post" action="#">
 					<div class="row uniform">
 						<div class="12u 12u$(xsmall)">
-							<input type="text" name="title" id="title" value="${dto.content_title}"
+							<input type="text" name="title" id="title" value="<%=data.get(0).get("content_title")%>"
 								placeholder="제목" maxlength="50"/>
 						</div>
 						<!-- Break -->
 						<div class="12u$">
 							<textarea name="ckContent" id="ckContent" placeholder="content"
-								rows="20" value="">${dto.content_content}</textarea>
+								rows="20" value=""><%=data.get(0).get("content_content") %></textarea>
 							<script type="text/javascript">				
 								/* 개인 키값 입력 */
 								UPLOADCARE_PUBLIC_KEY = '07c3ee3ce257b7a7ce86';
@@ -120,7 +145,7 @@
 	</div>
 <script>
 	function backTolist() {
-		location.href = "${pageContext.request.contextPath}/views/picboard/imgboardlist.do";
+		location.href = "boardlist.do?page_id=<%=page_id%>";
 	};
 	
 	/* $("#submit").click(function(){ */

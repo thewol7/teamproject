@@ -12,6 +12,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import server.dto.ServerDto;
@@ -58,7 +59,7 @@ public class ServerDao {
 		}
 	}
 	
-	//���� ����: TRUE ����, FALSE ����
+	//占쏙옙占쏙옙 占쏙옙占쏙옙: TRUE 占쏙옙占쏙옙, FALSE 占쏙옙占쏙옙
 	public boolean createAccount(String id, String pwd, String name, String gender, String phone, String email){
 		Connection conn=null;
 		PreparedStatement pst=null;
@@ -100,7 +101,7 @@ public class ServerDao {
 		}
 	}
 	
-	//�α��� �׼�: 0 ����, �� �� ����
+	//占싸깍옙占쏙옙 占쌓쇽옙: 0 占쏙옙占쏙옙, 占쏙옙 占쏙옙 占쏙옙占쏙옙
 	public int loginAction(String id, String pwd){
 		Connection conn=null;
 		PreparedStatement pst=null;
@@ -161,158 +162,13 @@ public class ServerDao {
 	}
 	
 	public double getMaxpage(int page_id){
-		Connection conn=null;
-		PreparedStatement pst=null;
-		ResultSet rst=null;
-		double count=0;
-		
-		try{
-			conn=new DbcpBean().getConn();
-			pst=conn.prepareStatement("SELECT count(*) AS count FROM tp_priboard WHERE user_id=?");
-			pst.setInt(1, page_id);
-			rst=pst.executeQuery();
-			while(rst.next()){
-				count=rst.getDouble("count");
-			}
-		}catch(Exception e){
-			
-		}finally{
-			try{
-				if(rst!=null)rst.close();
-				if(pst!=null)pst.close();
-				if(conn!=null)conn.close();
-			}catch(Exception e){}
-		}
+		SqlSession session=factory.openSession();
+		int count=session.selectOne("board.getCount",page_id);
+		session.close();
 		return count;
 	}
 	
-	public ArrayList<Map<String, Object>> getPriboard(int page_id, int initqty, int qty){
-		Connection conn=null;
-		PreparedStatement pst=null;
-		ResultSet rst=null;
-		ArrayList<Map<String, Object>> data=new ArrayList<Map<String, Object>>();
-		int times=0;
-		
-		try{
-			conn=new DbcpBean().getConn();
-			pst=conn.prepareStatement("SELECT cont_id, content_title, content_content, view_count, TO_CHAR(content_date, 'YYYY-MM-DD') AS condate FROM tp_priboard JOIN WHERE user_id=? ORDER BY content_date DESC");
-			pst.setInt(1, page_id);
-			rst=pst.executeQuery();
-			while(rst.next()){
-				if(times==qty){
-					break;
-				}
-				if(times>=initqty){
-				Map<String, Object> tmp=new HashMap<String, Object>();
-				tmp.put("cont_id", rst.getInt("cont_id"));
-				tmp.put("content_title", rst.getString("content_title"));
-				tmp.put("content_content", rst.getString("content_content"));
-				tmp.put("view_count", rst.getInt("view_count"));
-				tmp.put("content_date", rst.getString("condate"));
-				data.add(tmp);
-				}
-				times++;
-			}
-		}catch(Exception e){
-			
-		}finally{
-			try{
-				if(rst!=null)rst.close();
-				if(pst!=null)pst.close();
-				if(conn!=null)conn.close();
-			}catch(Exception e){}
-		}
-		
-		if(data.size()>0){
-			return data;
-		}else{
-			return null;
-		}
-	}
 	
-	//priboard �� �ۼ�: TRUE ����, FALSE ����
-	public boolean writePriboard(HttpSession session, String content_title, String content_content){
-		Connection conn=null;
-		PreparedStatement pst=null;
-		int ca=0;
-		
-		try{
-			conn=new DbcpBean().getConn();
-			pst=conn.prepareStatement("INSERT INTO tp_priboard VALUES(?, tp_priboard_seq.NEXTVAL, ?, ?, DEFAULT, DEFAULT)");
-			pst.setInt(1, (Integer)session.getAttribute("id"));
-			pst.setString(2, content_title);
-			pst.setString(3, content_content);
-			ca=pst.executeUpdate();
-		}catch(Exception e){
-			
-		}finally{
-			try{
-				if(pst!=null)pst.close();
-				if(conn!=null)conn.close();
-			}catch(Exception e){}
-		}
-		
-		if(ca>0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	public boolean deletePriboard(HttpSession session, int cont_id){
-		Connection conn=null;
-		PreparedStatement pst=null;
-		int ca=0;
-		
-		try{
-			conn=new DbcpBean().getConn();
-			pst=conn.prepareStatement("DELETE FROM tp_priboard WHERE user_id=? AND cont_id=?");
-			pst.setInt(1, (Integer)session.getAttribute("id"));
-			pst.setInt(2, cont_id);
-			ca=pst.executeUpdate();
-		}catch(Exception e){
-			
-		}finally{
-			try{
-				if(pst!=null)pst.close();
-				if(conn!=null)conn.close();
-			}catch(Exception e){}
-		}
-		
-		if(ca>0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public boolean updatePriboard(HttpSession session, int cont_id, String content_title, String content_content){
-		Connection conn=null;
-		PreparedStatement pst=null;
-		int ca=0;
-		
-		try{
-			conn=new DbcpBean().getConn();
-			pst=conn.prepareStatement("UPDATE tp_priboard SET content_title=?, content_content=? WHERE user_id=? AND cont_id=?");
-			pst.setString(1, content_title);
-			pst.setString(2, content_content);
-			pst.setInt(3, (Integer)session.getAttribute("id"));
-			pst.setInt(4, cont_id);
-			ca=pst.executeUpdate();
-		}catch(Exception e){
-			
-		}finally{
-			try{
-				if(pst!=null)pst.close();
-				if(conn!=null)conn.close();
-			}catch(Exception e){}
-		}
-		
-		if(ca>0){
-			return true;
-		}else{
-			return false;
-		}
-	}
 	
 	public int getRandomPage(){
 		Connection conn=null;
@@ -344,41 +200,7 @@ public class ServerDao {
 		return page_id;
 	}
 	
-	public ArrayList<Map<String, Object>> getPridetail(int cont_id){
-		Connection conn=null;
-		PreparedStatement pst=null;
-		ResultSet rst=null;
-		ArrayList<Map<String, Object>> data=new ArrayList<Map<String, Object>>();
-		
-		try{
-			conn=new DbcpBean().getConn();
-			pst=conn.prepareStatement("SELECT  content_title, content_content,"
-					+ " TO_CHAR(content_date, 'YYYY-MM-DD') AS condate FROM tp_priboard WHERE cont_id=?");
-			pst.setInt(1, cont_id);
-			rst=pst.executeQuery();
-			if(rst.next()){
-				Map<String, Object> tmp=new HashMap<String, Object>();
-				tmp.put("content_title", rst.getString("content_title"));
-				tmp.put("content_content", rst.getString("content_content"));
-				tmp.put("content_date", rst.getString("condate"));
-				data.add(tmp);
-			}
-		}catch(Exception e){
-			
-		}finally{
-			try{
-				if(rst!=null)rst.close();
-				if(pst!=null)pst.close();
-				if(conn!=null)conn.close();
-			}catch(Exception e){}
-		}
-		if(data.size()>0){
-			return data;
-		}else{
-			return null;
-		}
-		
-	}
+	
 	
 	public boolean updateviewcount(int cont_id){
 		Connection conn=null;
@@ -659,7 +481,7 @@ public class ServerDao {
 		return data;
 	}
 	
-	//���ϸ���Ʈ
+	//占쏙옙占싹몌옙占쏙옙트
 		public List<ServerDto> getlist(int page_id){
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -739,7 +561,7 @@ public class ServerDao {
 			return list;
 		}
 		
-		//���� ����ϱ�
+		//占쏙옙占쏙옙 占쏙옙占쏙옙歐占�
 		public boolean insert(ServerDto dto){
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -771,7 +593,7 @@ public class ServerDao {
 			}
 		}//insert
 			
-		//id �� �޾Ƽ� ȸ���ױ�����dto���Ϲޱ� > �̸����
+		//id 占쏙옙 占쌨아쇽옙 회占쏙옙占쌓깍옙占쏙옙占쏙옙dto占쏙옙占싹받깍옙 > 占싱몌옙占쏙옙占�
 		public ServerDto getWriterName(int writer_id){
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -844,7 +666,7 @@ public class ServerDao {
 			return dto;
 		}
 		
-		//id �� �޾Ƽ� ȸ���ױ�����dto���Ϲޱ� > �̸����
+		//id 占쏙옙 占쌨아쇽옙 회占쏙옙占쌓깍옙占쏙옙占쏙옙dto占쏙옙占싹받깍옙 > 占싱몌옙占쏙옙占�
 			public ServerDto getPageName(int page_id){
 				Connection conn = null;
 				PreparedStatement pstmt = null;
