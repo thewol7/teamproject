@@ -42,7 +42,7 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="<%=cPath%>/home.do" class="logo">
+				<a href="${pageContext.request.contextPath }/home.do" class="logo">
 					<strong>${info.name }</strong>님의 Blog
 				</a>
 				<ul class="icons">
@@ -52,14 +52,14 @@
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="<%=cPath%>/loginform.do" class="logo">
+						<a href="${pageContext.request.contextPath }/loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
 						</c:when>
 						<c:otherwise>
 					<li>
-						<a href="<%=cPath%>/logout.do" class="logo">
+						<a href="${pageContext.request.contextPath }/logout.do" class="logo">
 							<span class="">로그아웃</span>
 						</a>
 					</li>
@@ -105,7 +105,7 @@
 				<section style="padding-top:2em">
 				<div class="row">
 					<div class="6u 6u(small)">
-						<h2 class="h-header">게시판</h2>
+						<h2 class="h-header">게시판</h2> <%--  / id : ${id } / page_id : ${page_id } --%>
 					</div>
 				<c:if test="${ id eq page_id  }">
 					<div class="6u 6u(small)" style="text-align: right">
@@ -176,14 +176,12 @@
 						<c:choose>
 							<c:when test="${i eq pageNum }">
 							<li>
-								<a class="page active"
-									href="boardlist.do?pageNum=${i}">${i}</a>
+								<a class="page active" href="boardlist.do?pageNum=${i}">${i}</a>
 							</li>
 							</c:when>
 							<c:otherwise>
 							<li>
-								<a class="page"
-									href="boardlist.do?pageNum=${i}">${i}</a>
+								<a class="page"	href="boardlist.do?pageNum=${i}">${i}</a>
 							</li>
 							</c:otherwise>
 						</c:choose>

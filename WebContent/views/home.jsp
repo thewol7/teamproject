@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <jsp:include page="/resource.jsp" />
-<title>메인 페이지</title>
+<title>메인 </title>
 </head>
 <style>
 </style>
@@ -21,7 +21,7 @@
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 --> <a
-					href="home.do" class="logo"
+					href="${pageContext.request.contextPath }/home.do" class="logo"
 				>
 					<strong>${info.name }</strong>님의 Blog
 				</a>
@@ -34,7 +34,7 @@
 						<!-- 1. 로그인 정보가 없을 경우 로그인이 되게 한다. 
 						2. 로그인창은 새창없이 이동한다. 
 						3. 로그인창에서 회원가입 한다. -->
-						<a href="loginform.do" class="logo">
+						<a href="${pageContext.request.contextPath }/loginform.do" class="logo">
 							<span class="">로그인</span>
 						</a>
 					</li>
@@ -43,8 +43,8 @@
 						} else {
 					%>
 					<li>
-						<a href="logout.do" class="logo">
-							<span class="">로그아웃</span>
+						<a href="${pageContext.request.contextPath }/logout.do" class="logo">
+							<span class="">로그아웃(${info.name })</span>
 						</a>
 					</li>
 					<%
@@ -105,7 +105,7 @@
 				<span class="image object ">
 					<!-- <img src="images/modal_05.jpg" alt="" /> -->
 					<a href="#">
-						<img src="images/sam_01.jpg" alt="" />
+						<img src="${pageContext.request.contextPath }/images/sam_01.jpg" alt="" />
 					</a>
 				</span> </section>
 
@@ -116,7 +116,7 @@
 				</header>
 				<div class="posts">
 					<article> <a href="#" class="image">
-						<img src="images/modal_01.jpg" alt="" />
+						<img src="${pageContext.request.contextPath }/images/modal_01.jpg" alt="" />
 					</a>
 					<h3>oasperioresdo</h3>
 					<p class="text-overflow-3">nean ornare velit lacus, ac varius enim lorem ullamcorper
@@ -130,7 +130,7 @@
 					</ul>
 					</article>
 					<article> <a href="#" class="image">
-						<img src="images/zok_01.jpg" alt="" />
+						<img src="${pageContext.request.contextPath }/images/zok_01.jpg" alt="" />
 					</a>
 					<h3>asperiores do</h3>
 					<p class="text-overflow-3">Aenean ornare velit lacus, ac varius enim lorem ullamcorper
@@ -142,7 +142,7 @@
 					</ul>
 					</article>
 					<article> <a href="#" class="image">
-						<img src="images/modal_03.jpg" alt="" />
+						<img src="${pageContext.request.contextPath }/images/modal_03.jpg" alt="" />
 					</a>
 					<h3>orasperiores</h3>
 					<p class="text-overflow-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -155,7 +155,7 @@
 					</ul>
 					</article>
 					<article> <a href="#" class="image">
-						<img src="images/sijang_01.jpg" alt="" />
+						<img src="${pageContext.request.contextPath }/images/sijang_01.jpg" alt="" />
 					</a>
 					<h3>asperiores</h3>
 					<p class="text-overflow-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -168,7 +168,7 @@
 					</ul>
 					</article>
 					<article> <a href="#" class="image">
-						<img src="images/pa1.png" alt="" />
+						<img src="${pageContext.request.contextPath }/images/pa1.png" alt="" />
 					</a>
 					<h3>asperiores</h3>
 					<p class="text-overflow-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -181,7 +181,7 @@
 					</ul>
 					</article>
 					<article> <a href="#" class="image">
-						<img src="images/main_d3.jpg" alt="" />
+						<img src="${pageContext.request.contextPath }/images/main_d3.jpg" alt="" />
 					</a>
 					<h3>asperiores</h3>
 					<p class="text-overflow-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.

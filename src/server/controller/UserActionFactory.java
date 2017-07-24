@@ -15,11 +15,17 @@ import server.board.action.BoardListAction;
 import server.board.action.BoardUpdateAction;
 import server.board.action.BoardUpdateformAction;
 import server.board.action.BoardWriteAction;
+<<<<<<< HEAD
 import server.board.action.BoardWriteformAction;
+=======
+import server.board.action.BoardWriteformAction;
+import server.board.action.CommentInsertAction;
+>>>>>>> refs/remotes/origin/master
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
 import server.main.action.LogoutAction;
+import server.main.action.RandomAction;
 import server.main.action.SignupAction;
 import server.main.action.SignupformAction;
 
@@ -70,7 +76,7 @@ public class UserActionFactory {
 			action = new BoardDeleteAction();
 		} else if (command.equals("/board/imgboardwriteform")) {
 			action = new ToImgBoardwritePg();
-		}  else if (command.equals("/board/imgboardwrite")){
+		} else if (command.equals("/board/imgboardwrite")){
 			action = new DoImgBoardwriteAction();
 		} else if(command.equals("/board/imgboarddetail")){
 			action = new ToImgBoardDetailPg();
@@ -82,6 +88,12 @@ public class UserActionFactory {
 			action = new GuestBoardInsertAction();
 		}else if(command.equals("/guestboard/delete")){
 			action = new GuestBoardDeleteAction();
+		} else if (command.equals("/views/board/boardcomment")) {
+			action = new CommentInsertAction();
+		} else if (command.equals("/views/board/imgboardcomment")) {
+			action = new CommentInsertAction();
+		} else if (command.equals("/random")){
+			action = new RandomAction();
 		}
 		return action;
 	}

@@ -97,9 +97,7 @@
 				폭풍으로</a>
 		</li>
 		<li>
-			<a
-				href="http://cafe.daum.net/dotax/FGFP/9287?q=%C8%F7%BE%EE%B7%CE%C1%EE%20%BF%C0%BA%EA%20%B4%F5%20%C5%B9%BD%BA">시공의
-				폭풍으로2</a>
+			<a href="${pageContext.request.contextPath }/random.do">랜덤 테스트</a>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath }/mgt/management.jsp">관리</a>

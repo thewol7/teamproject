@@ -1,9 +1,7 @@
 package server.board.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +35,7 @@ public class BoardListAction extends Action{
 			endPageNum=totalPageCount;
 		}
 		PriboardDto dto=new PriboardDto();
+		
 		dto.setUser_id((Integer)request.getSession().getAttribute("page_id"));
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);

@@ -6,6 +6,10 @@
 		FROM (SELECT result1.*,ROWNUM rnum 
 				FROM (SELECT cont_id,content_title,view_count,TO_CHAR(content_date, 'YYYY-MM-DD') AS content_date 
 						FROM tp_priboard
+<<<<<<< HEAD
+=======
+						WHERE user_id = #{user_id}
+>>>>>>> refs/remotes/origin/master
 					    ORDER BY cont_id DESC
 					    ) result1
 			     )
