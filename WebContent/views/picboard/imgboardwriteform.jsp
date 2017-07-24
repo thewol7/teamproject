@@ -149,11 +149,8 @@
 			/* 데이터가 있을 경우 데이터값을 input에 담아서 넘김 */
 			document.getElementById("ckValue").value=ckData;
 			if(document.getElementById("ckValue").value == null){
-				alert("ckValue null!!");
 				return false;
 			}else{
-				alert("ckValue:"+document.getElementById("ckValue").value
-						+" &&title:"+document.getElementById("title").value);
 				return true;
 			}	
 		}else{
