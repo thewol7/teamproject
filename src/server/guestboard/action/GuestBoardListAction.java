@@ -43,7 +43,6 @@ public class GuestBoardListAction extends Action{
 		dto.setUser_id(page_id);
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
-		System.out.println(totalRow);
 		List<GuestBoardDto> list = GuestBoardDao.getInstance().getList(dto);				
 		/*if(list != null){
 			System.out.println(list);

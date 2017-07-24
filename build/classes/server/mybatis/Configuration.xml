@@ -19,18 +19,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<!-- sql 문을 정의하고 있는 xml 문서 -->
 	<mappers>
-<<<<<<< HEAD
-		<mapper resource="server/mybatis/MainMapper.xml"/>
-
-		<mapper resource="server/mybatis/GuestBoardMapper.xml"/>
-
-		<mapper resource="server/mybatis/BoardMapper.xml"/>
-
-=======
 		<mapper resource="server/mybatis/CommentMapper.xml"/>
 		<mapper resource="server/mybatis/MainMapper.xml"/>
-		<mapper resource="server/mybatis/BoardMapper.xml"/>		
->>>>>>> refs/remotes/origin/master
+		<mapper resource="server/mybatis/GuestBoardMapper.xml"/>
+		<mapper resource="server/mybatis/BoardMapper.xml"/>
 	</mappers>	
 </configuration>
 

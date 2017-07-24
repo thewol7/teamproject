@@ -15,12 +15,8 @@ import server.board.action.BoardListAction;
 import server.board.action.BoardUpdateAction;
 import server.board.action.BoardUpdateformAction;
 import server.board.action.BoardWriteAction;
-<<<<<<< HEAD
-import server.board.action.BoardWriteformAction;
-=======
 import server.board.action.BoardWriteformAction;
 import server.board.action.CommentInsertAction;
->>>>>>> refs/remotes/origin/master
 import server.main.action.HomeAction;
 import server.main.action.LoginAction;
 import server.main.action.LoginformAction;
