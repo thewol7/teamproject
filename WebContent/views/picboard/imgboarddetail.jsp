@@ -27,14 +27,6 @@
 
 		<!-- Main -->
 		<div id="main">
-		<div>
-		<c:if test="${dto.prevNum ne 0 }">
-			<a href="detail.do?num=${dto.prevNum }">이전글</a> |
-		</c:if>
-		<c:if test="${dto.nextNum ne 0 }">
-			<a href="detail.do?num=${dto.nextNum }">다음글</a>
-		</c:if>
-		</div>
 			<div class="inner">
 
 				<!-- Header -->
@@ -100,6 +92,15 @@
 				<!-- Banner -->
 				<section style="padding-top : 3em">
 				<div class="box 12u$" style="padding-bottom: 22px; min-height: 500px;">
+					<div>
+					<c:if test="${dto.prevNum ne 0 }">
+						<a href="imgboarddetail.do?cont_id=${dto.prevNum }">이전글</a> |
+					</c:if>
+					<c:if test="${dto.nextNum ne 0 }">
+						<a href="imgboarddetail.do?cont_id=${dto.nextNum }">다음글</a>
+					</c:if>
+					</div>
+					
 					<h4 style="margin-bottom:0">
 						<p>${dto.content_title}</p>
 					</h4>

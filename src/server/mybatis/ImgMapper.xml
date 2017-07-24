@@ -24,8 +24,8 @@
 		SELECT result1.*
 		FROM
 			(SELECT <include refid="imgColumns"/>,
-			LAG(cont_id,1,0) OVER(ORDER BY num DESC) prevNum,
-			LEAD(cont_id,1,0) OVER(ORDER BY num DESC) nextNum
+			LAG(cont_id,1,0) OVER(ORDER BY cont_id DESC) prevNum,
+			LEAD(cont_id,1,0) OVER(ORDER BY cont_id DESC) nextNum
 			FROM tp_picboard
 			ORDER BY cont_id DESC) result1
 		WHERE cont_id=#{cont_id}
