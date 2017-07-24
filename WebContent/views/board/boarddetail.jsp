@@ -25,12 +25,12 @@
 	
 .comment .reply_icon {
 	position: absolute;
-	width: 15px;
-	height: 15px;
-	top: 0px;
+	width: 10px;
+	height: 10px;
+	top: 45px;
 	left: -30px;
-	border-left: 1px solid black;
-	border-bottom: 1px solid black;
+	border-left: 1px solid #f56a6a;
+	border-bottom: 1px solid #f56a6a;
 }
 
 .comment form {
@@ -154,39 +154,49 @@
 						<c:if test="${tmp.num ne tmp.comment_group }">
 							<div class="reply_icon"></div>
 						</c:if>
-							<ul class="alt">
-								<li>
-									<a class="icon" href="">#${tmp.writer }</a>
-									<i>${tmp.regdate }</i>
-									<a class="rep icon" href="javascript:">답글</a>
-								</li>
-								<li>
-									<p style="margin-bottom: 0 !important">${tmp.content }</p>
-								</li>
-							</ul>
-							<form class="repForm" method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
+						<div class="row uniform">
+							<div class="1u">
+								<img src="${pageContext.request.contextPath }/images/icons/Vente d'esclavesnew.png" alt="" />
+							</div>	
+							<div class="dbContent 11u">
 								<ul class="alt">
 									<li>
-										<a class="icon" href="">#${info.name }</a>
+										<a class="icon" href="">${tmp.writer }</a>
+										<i>${tmp.regdate }</i>
+										<a class="rep icon" href="javascript:">답글</a>
+									</li>
+									<li>
+										<p style="margin-bottom: 0 !important">${tmp.content }</p>
 									</li>
 								</ul>
+							</div>
+						</div>
+							<form class="repForm" method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
+								<!-- <ul class="alt">
+									<li>
+										<a class="icon" href="">#${session.name }</a>
+									</li>
+								</ul> -->
 								<div class="row uniform">
-									<div class="10u 9u(medium) 9u(small) 12u$(xsmall)" style="padding-top: 0">
-										<textarea style="resize: none" name="content" id="content1"	placeholder="COMMENT" rows="2"></textarea>
+									<div class="1u profileImg">
+										<img style="float:left" src="${pageContext.request.contextPath }/images/icons/Acenew.png" alt="" />
+									</div>											
+									<div class="showContent 9u 8u(medium) 8u(small) 11u$(xsmall)" > <!-- style="padding-top: 0; padding-left:0" -->
+											<textarea style="resize: none" name="content" placeholder="COMMENT" rows="2"></textarea>
 									</div>
-									<!-- Break -->
-									<div class="2u 2u(medium) 3u(small)">
+										<!-- Break -->
+									<div class="2u 2u(medium) 2u(small)">
 										<ul class="actions">
 										<!-- 덧글 작성자 -->
-											<input type="hidden" name="writer" value="${info.name }"/>
+											<input type="hidden" name="writer" value="${session.name }"/>
 											<!-- 덧글 그룹 -->
 											<input type="hidden" name="ref_group" value="${result.cont_id }" />											
 											<input type="hidden" name="comment_group" value="${tmp.comment_group }" />
 											<!-- 덧글 게시판 번호 일반 게시판 1, img게시판 2-->
 											<input type="hidden" name="board_id" value="1" /> 
-											<input class="button small" type="submit" value="COMMENT" onclick="return repChk1()" />
+											<input class="button small" type="submit" value="COMMENT"/>
 										</ul>
-									</div>
+									</div>									
 								</div>
 							</form>
 						</div>
@@ -196,26 +206,29 @@
 							<c:if test="${empty id }">
 								<li>로그인 후 글을 남겨주세요</li>
 							</c:if>
-							<c:if test="${not empty id }">
+							<%-- <c:if test="${not empty id }">
 								<li>
-									<a class="icon" href="">#${info.name }</a>
+									<a class="icon" href="">#${session.name }</a>
 								</li>
-							</c:if>
+							</c:if> --%>
 						</ul>
-						<div class="row uniform">
-							<div class="10u 9u(medium) 9u(small) 12u$(xsmall)" style="padding-top: 0">
+						<div class="row uniform">	
+							<div class="1u profileImg">
+								<img src="${pageContext.request.contextPath }/images/icons/Luffys flag 2new.png" alt="" />
+							</div>						
+							<div class="showContent 9u 8u(medium) 8u(small) 11u$(xsmall)">
 								<textarea style="resize: none" name="content" id="content" placeholder="COMMENT" rows="2"></textarea>
 							</div>
 							<!-- Break -->
 							<div class="2u 2u(medium) 2u(small)">
 								<ul class="actions">
 									<!-- 덧글 작성자 -->
-									<input type="hidden" name="writer" value="${info.name}" />
+									<input type="hidden" name="writer" value="${session.name}" />
 									<!-- 덧글 그룹 -->
 									<input type="hidden" name="ref_group" value="${result.cont_id }" />
 									<!-- 덧글 게시판 번호 일반 게시판 1, img게시판 2-->
 									<input type="hidden" name="board_id" value="1" /> 
-									<input class="button small" type="submit" value="COMMENT" onclick="return loginChk()" />
+									<input class="button small" type="submit" value="COMMENT" onclick="return repChk()" />
 								</ul>
 							</div>
 						</div>
@@ -243,30 +256,28 @@
 	}
 	
 	
-	// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
-	/* var Id = ${empty id}; */
-		// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
-	/* function repChk1() {
-		var content = $("#content1").val();
-		alert(content);
-		alert("repChk 누름");
-		if (content == ""){
-			alert(content);
-			return false;
+	
+	//덧글의 덧글 form 에 전송이벤트가 일어낫을때 실행할 함수 등록
+	// 기존에 id값으로 안됬던건 유일한 값이 아니었기 때문이다.
+	$(".repForm").submit(function(){
+		//이벤트가 일어난 바로 그 폼을 선택해서 자손요소 중에서 textarea 요소를 찾아서 value 값 읽어오기 
+		var content=$(this).find("textarea").val();
+		if(content==''){
+		    alert('Comment를 입력해 주세요');
+			return false; //폼전송 막기 
 		} else {
 			return true;
 		}
-	} */
+	});
 	
-	function loginChk() {
-		var content = $("#content").val();
-		/* alert(content); */
+	/* 기본 댓글 */
+	function repChk() {
 		if (${empty id}){
 			if(confirm("로그인이 필요합니다.")){
 		        location.href = "${pageContext.request.contextPath }/loginform.do";
 			}
 			return false;
-		} else if(content == ""){
+		} else if($("#content").val().trim().length < 1){
 			alert("Comment를 입력해 주세요.");
 			return false;
 		} else {
@@ -287,14 +298,14 @@
 				}
 				if ($(this).text() == "답글") {
 					console.log("누름");
-					$(this).text("취소").parent().parent().parent().find("form").slideToggle();
+					$(this).text("취소").parent().parent().parent().parent().parent().find("form").toggle();
 					/* $(".repForm").slideToggle().text("취소"); */
 					/* $(this).text("취소").toggleClass(".repForm"); */
 					/* $(".repForm").slideToggle()
 					$(this).text("취소"); */
 				} else {
 					console.log("누름");
-					$(this).text("답글").parent().parent().parent().find("form").slideToggle();
+					$(this).text("답글").parent().parent().parent().parent().parent().find("form").toggle();
 					/* $(".repForm").slideToggle()
 					$(this).text("답글"); */
 					/* $(this).text("답글").toggleClass(".repForm"); */

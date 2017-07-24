@@ -96,3 +96,9 @@ $("#submit").click(function(){
 	 <script type="text/javascript">
 								CKEDITOR.replace('ckContent');								
 							</script>
+							
+======================================================================================
+
+// session에 있는 이름 넘겨주기 위함
+/*ServerMainDto mainDto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("id"));
+request.setAttribute("session", mainDto);*/

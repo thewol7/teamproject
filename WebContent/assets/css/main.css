@@ -3603,6 +3603,7 @@ input[type="submit"].disabled, input[type="submit"]:disabled, input[type="reset"
 	#main>.inner>section.login-input-reform {
 		padding-left: 25%;
 		padding-right: 25%;
+		padding-top: 20px;
 	}
 }
 
@@ -3688,6 +3689,7 @@ input[type="submit"].disabled, input[type="submit"]:disabled, input[type="reset"
 	#main>.inner>section.signup-input-reform {
 		padding-left: 25%;
 		padding-right: 25%;
+		padding-top: 20px
 	}
 }
 
@@ -3743,7 +3745,7 @@ body.cke_editable cke_editable_themed cke_contents_ltr p{
 }
 
 /* 한줄로 길어질때 자동 줄 바꿈으로 표시되게 */
-.box>p, .box>p.image, .comments>p{
+.box>p, .box>p.image, .comment ul li>p{
 	word-break:break-all;
 }
 
@@ -3756,4 +3758,19 @@ body.cke_editable cke_editable_themed cke_contents_ltr p{
 /* 댓글 백그라운드 색상 지정 */
 div.comments{
 	background-color: f9f9f9;
+}
+
+/* 댓글 패딩 값 수정 */
+.row.uniform div.dbContent {
+	padding-left:0;
+}
+
+.row.uniform div.showContent {
+	padding-left:0;
+	padding-top:0;
+}
+
+/* comment profile img top size */
+.row.uniform div.profileImg{
+	padding-top:11px;
 }

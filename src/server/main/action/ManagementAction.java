@@ -8,14 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import server.controller.Action;
 import server.controller.ActionForward;
 
-public class HomeAction extends Action {
+public class ManagementAction extends Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		/*ServerMainDto mainDto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("id"));
-		request.setAttribute("session", mainDto);*/
-		
-		return new ActionForward("/views/home.jsp");
+		// TODO Auto-generated method stub
+		return new ActionForward("/views/users/private/management.jsp");
 	}
 
 }

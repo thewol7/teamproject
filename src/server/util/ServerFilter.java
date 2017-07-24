@@ -50,6 +50,12 @@ public class ServerFilter implements Filter{
 			response.sendRedirect(request.getContextPath()+"/home.do");
 			return;
 		}
+		
+		if(request.getSession().getAttribute("id") != null){
+			ServerMainDto dto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("id"));
+			request.setAttribute("session", dto);
+		}
+		
 		ServerMainDto dto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("page_id"));
 		request.setAttribute("info", dto);
 		

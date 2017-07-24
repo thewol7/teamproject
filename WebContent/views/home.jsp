@@ -44,7 +44,7 @@
 					%>
 					<li>
 						<a href="${pageContext.request.contextPath }/logout.do" class="logo">
-							<span class="">로그아웃(${info.name })</span>
+							<span class="">로그아웃</span>
 						</a>
 					</li>
 					<%

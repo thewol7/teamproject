@@ -4,7 +4,7 @@
 	<!-- 일반 게시판 db -->
 	<!-- ################################################################################# -->
 	<select id="priGetList" parameterType="int" resultType="server.board.dto.CommentDto">
-		SELECT num, user_id, writer, content, ref_group, comment_group,	regdate
+		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate
 		FROM tp_priboard_comment
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
@@ -22,7 +22,7 @@
 	<!-- 이미지 게시판 db -->
 	<!-- ################################################################################# -->
 	<select id="picGetList" parameterType="int" resultType="server.board.dto.CommentDto">
-		SELECT num, user_id, writer, content, ref_group, comment_group,	regdate
+		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate
 		FROM tp_picboard_comment
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
