@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import server.controller.Action;
 import server.controller.ActionForward;
-import server.dao.ServerDao;
 import server.img.dao.ImgDao;
 import server.img.dto.ImgDto;
 

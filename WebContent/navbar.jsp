@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="inner">
 
 	<!-- Search -->
@@ -12,14 +13,33 @@
 	</section>
 
 	<!-- Menu -->
-	<!-- 나중에 관리자 페이지를 만들어서 메뉴 추가 가능하게 한다. -->
-	<nav id="menu"> <header class="major">
-	<h2>Menu</h2>
-	</header> <!-- 		<header>
-		<a href="#">		
-			<h3><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;관리</h3>
-		</a>
-	</header>	 -->
+	<nav id="menu"> 
+	<header class="major">
+		<h2>
+			Menu&nbsp;&nbsp;		
+		</h2>
+	</header> 
+	<c:if test="${not empty id }">
+	<!-- 관리페이지 아이콘/session.name navber에 추가함. 추후 업데이트 페이지 구성 -->
+	<!-- 이미지 아이콘은 업로드 시 사이즈를 조절하여 40x40 혹은 50x50으로.. 상황봐서 크기 조절 -->
+	<header style="margin-bottom:20px">
+			<ul class="icons">
+				<li>					
+					<a href="${pageContext.request.contextPath }/mnt.do">
+						<img src="${pageContext.request.contextPath }/images/icons/Vente d'esclavesnew.png" alt="" />
+					</a>
+				</li>
+				<li style="padding:0">
+					<a href="${pageContext.request.contextPath }/mnt.do" class="icon">${session.name }</a>
+					<i>
+					<%-- <fmt:parseDate value="${session.create_date }" var="dateTmp" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${dateTmp}" pattern="yyyy-MM-dd"/> --%>				
+					${session.create_date }
+					</i>
+				</li>				
+			</ul>	
+	</header> 
+	</c:if>
 	<ul>
 		<li>
 			<c:choose>
@@ -34,9 +54,8 @@
 		<li>
 			<span class="opener">게시판</span>
 			<ul>
-				<li>
-					<a href="${pageContext.request.contextPath }/views/board/boardlist.do">자유
-						게시판</a>
+				<li>					
+					<a href="${pageContext.request.contextPath }/views/board/boardlist.do">자유	게시판</a>
 				</li>
 				<li>
 					<a href="#" onclick="alert('준비중.. 누르지마')">동영상게시판</a>
@@ -95,10 +114,7 @@
 				폭풍으로</a>
 		</li>
 		<li>
-			<a href="${pageContext.request.contextPath }/random.do">랜덤 테스트</a>
-		</li>
-		<li>
-			<a href="${pageContext.request.contextPath }/mgt/management.jsp">관리</a>
+			<a href="${pageContext.request.contextPath }/random.do">랜덤 테스트(임시)</a>
 		</li>
 	</ul>
 	</nav>

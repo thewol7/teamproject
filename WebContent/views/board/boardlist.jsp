@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<%@page import="server.dao.ServerDao"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -169,7 +167,7 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="boardlist.do?pageNum=${startPageNum-1 }" class="button">Prev</a>
+							<span href="boardlist.do?pageNum=${startPageNum-1 }" class="button disabled">Prev</span>
 						</li>
 					</c:otherwise>
 					</c:choose>	

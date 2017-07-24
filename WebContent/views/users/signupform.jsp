@@ -7,13 +7,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="${pageContext.request.contextPath }/assets/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script src="${pageContext.request.contextPath }/assets/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <jsp:include page="/resource.jsp" />
 <title>회원가입</title>
 </head>
 <style>
 </style>
 <body>
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -103,6 +106,12 @@
 								<input type="radio" name="gender" id="female" value="F">
 								<label for="female">FEMALE</label>
 							</div>
+							<!-- <div class="12u 12u$(xsmall) input-reform-bottom">								
+								<script>UPLOADCARE_PUBLIC_KEY = "demopublickey";</script>
+								<script src="https://ucarecdn.com/libs/widget/3.1.0/uploadcare.full.min.js" charset="utf-8"></script>
+								<input type="hidden" role="uploadcare-uploader" data-images-only 
+								data-crop="50x50 upscale"/>		
+							</div> -->
 							<div class="12u 12u$(xsmall)" style="text-align: center;">
 								<ul class="actions">
 									<li>
@@ -129,5 +138,7 @@
 				</footer>
 			</div>
 		</div>
+<script>
+</script>
 </body>
 </html>

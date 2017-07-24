@@ -6,10 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import server.board.dao.CommentDao;
 import server.board.dao.PriboardDao;
-import server.board.dto.CommentDto;
 import server.board.dto.PriboardDto;
+import server.comment.dao.CommentDao;
+import server.comment.dto.CommentDto;
 import server.controller.Action;
 import server.controller.ActionForward;
 

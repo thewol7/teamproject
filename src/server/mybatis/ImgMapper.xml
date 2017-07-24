@@ -17,8 +17,7 @@
 	</select>
 	<insert id="insert" parameterType="imgDto">
 		INSERT INTO tp_picboard
-		VALUES(#{user_id},tp_picboard_seq.NEXTVAL,#{content_title},#{content_content},
-				#{pic},#{view_count},SYSDATE)
+		VALUES(#{user_id},tp_picboard_seq.NEXTVAL,#{content_title},#{content_content},#{pic},#{view_count},SYSDATE)
 	</insert>
 	<select id="getPicdetail" parameterType="int" resultType="imgDto">
 		SELECT result1.*

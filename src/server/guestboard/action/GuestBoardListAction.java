@@ -6,10 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import server.controller.Action;
 import server.controller.ActionForward;
-import server.dao.ServerDao;
 import server.guestboard.dao.GuestBoardDao;
 import server.guestboard.dto.GuestBoardDto;
 

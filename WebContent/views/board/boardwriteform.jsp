@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String cPath = request.getContextPath();
 %>
 <jsp:include page="/resource.jsp"></jsp:include>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -115,7 +113,7 @@
 								<li>
 									<!-- <input type="submit" value="확인" class="special" /> -->
 									<input type="hidden" name="ckValue" id="ckValue" value="" />
-									<input type="submit" onclick="return chkData()" value="확인" class="special subBtn" id="submit" />	
+									<input type="submit" onclick="return chkData()" value="확인" class="special" id="submit" />	
 									
 								</li>
 								<li>
@@ -125,6 +123,7 @@
 						</div>
 					</div>
 				</form>
+
 
 				</section>
 			</div>
@@ -138,14 +137,6 @@
 	</div>
 </body>
 <script>
-
-	$("form").on("submit",function(){
-		if($("#title").val()==""){
-			alert("제목이 비었습니다.");
-			return false;
-		}
-		
-	});
 
 	function backTolist() {
 		location.href = "boardlist.do";

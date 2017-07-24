@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 <%@page import="server.board.dao.PriboardDao"%>
-<%@page import="server.dao.ServerDao"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <title>Insert title here</title>
 </head>
 <style>
@@ -16,14 +15,13 @@
 <body>
 	<!-- Wrapper -->
 	<div id="wrapper">
-
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
 
 				<!-- Header -->
 				<header id="header"> <!-- 나중에 관리 페이지 추가해서 메뉴 편집 가능하도록 해야함 -->
-				<a href="${pageContext.request.contextPath}/index.do" class="logo">
+				<a href="${pageContext.request.contextPath }/home.do" class="logo">
 					<strong>${info.name}</strong>님의 Blog
 				</a>
 				<ul class="icons">
@@ -103,36 +101,36 @@
 							<c:if test="${!empty data }">
 								<c:forEach var="tmp" items="${data}">
 									<div class='
-										<c:choose>	
-											<c:when test="${fn:length(data) eq 1}">
-												12u
-											</c:when>
-											<c:when test="${fn:length(data) eq 2}">
-												6u 6u(medium) 6u(small) 12u(xsmall)
-											</c:when>
-											<c:when test="${fn:length(data) eq 3}">
-												4u 6u(medium) 6u(small) 12u(xsmall)
-											</c:when>
-											<c:otherwise>
-												3u 4u(medium) 6u(small) 12u(xsmall)
-											</c:otherwise>
-										</c:choose>
-									'>
-								
-								<span class="image fit img-panel">	
-									<a href="imgboarddetail.do?cont_id=${tmp.cont_id}" class="image">
-										<img src="${tmp.pic}" alt="" />
-									</a>
-									<h5>
-										<a class="icon"	href="imgboarddetail.do?cont_id=${tmp.cont_id }">${tmp.content_title}</a>
-									</h5>
-									<ul class="alt">
-										<li style="border-top: 1px solid black"></li>
-									</ul>
-								</span>
+											<c:choose>	
+												<c:when test="${fn:length(data) eq 1}">
+													12u
+												</c:when>
+												<c:when test="${fn:length(data) eq 2}">
+													6u 6u(medium) 6u(small) 12u(xsmall)
+												</c:when>
+												<c:when test="${fn:length(data) eq 3}">
+													4u 6u(medium) 6u(small) 12u(xsmall)
+												</c:when>
+												<c:otherwise>
+													3u 4u(medium) 6u(small) 12u(xsmall)
+												</c:otherwise>
+											</c:choose>
+										'>								
+									<span class="image fit img-panel">	
+										<a href="imgboarddetail.do?cont_id=${tmp.cont_id}" class="image">
+											<img src="${tmp.pic}" alt="" />
+										</a>
+										<h5>
+											<a class="icon"	href="imgboarddetail.do?cont_id=${tmp.cont_id }">${tmp.content_title}</a>
+										</h5>
+										<ul class="alt">
+											<li style="border-top: 1px solid black"></li>
+										</ul>
+									</span>
 								</div>
 								</c:forEach>
 							</c:if>
+							
 							<c:if test="${empty data }">
 								<div class="12u$" style="text-align:center">
 									<h2>입력된 게시글이 없습니다.</h2>

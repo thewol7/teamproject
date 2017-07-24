@@ -10,7 +10,6 @@ import server.board.dao.PriboardDao;
 import server.board.dto.PriboardDto;
 import server.controller.Action;
 import server.controller.ActionForward;
-import server.dao.ServerDao;
 
 public class BoardListAction extends Action{
 	private static final int PAGE_ROW_COUNT=15;

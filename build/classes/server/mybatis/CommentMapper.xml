@@ -3,8 +3,8 @@
 <mapper namespace="Comment">
 	<!-- 일반 게시판 db -->
 	<!-- ################################################################################# -->
-	<select id="priGetList" parameterType="int" resultType="server.board.dto.CommentDto">
-		SELECT num, user_id, writer, content, ref_group, comment_group,	regdate
+	<select id="priGetList" parameterType="int" resultType="server.comment.dto.CommentDto">
+		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate
 		FROM tp_priboard_comment
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
@@ -13,7 +13,7 @@
 		SELECT tp_priboard_comment_seq.NEXTVAL
 		FROM DUAL
 	</select>
-	<insert id="priInsert" parameterType="server.board.dto.CommentDto">
+	<insert id="priInsert" parameterType="server.comment.dto.CommentDto">
 		INSERT INTO tp_priboard_comment
 		(num, user_id, writer, content, ref_group, comment_group, regdate)
 		VALUES(#{num}, #{user_id}, #{writer}, #{content}, #{ref_group}, #{comment_group}, SYSDATE)
@@ -21,8 +21,8 @@
 	
 	<!-- 이미지 게시판 db -->
 	<!-- ################################################################################# -->
-	<select id="picGetList" parameterType="int" resultType="server.board.dto.CommentDto">
-		SELECT num, user_id, writer, content, ref_group, comment_group,	regdate
+	<select id="picGetList" parameterType="int" resultType="server.comment.dto.CommentDto">
+		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate
 		FROM tp_picboard_comment
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
@@ -31,7 +31,7 @@
 		SELECT tp_picboard_comment_seq.NEXTVAL
 		FROM DUAL
 	</select>
-	<insert id="picInsert" parameterType="server.board.dto.CommentDto">
+	<insert id="picInsert" parameterType="server.comment.dto.CommentDto">
 		INSERT INTO tp_picboard_comment
 		(num, user_id, writer, content, ref_group, comment_group, regdate)
 		VALUES(#{num}, #{user_id}, #{writer}, #{content}, #{ref_group}, #{comment_group}, SYSDATE)

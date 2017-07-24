@@ -17,11 +17,11 @@
 		AND pwd=#{pwd}
 	</select>
 	<select id="getInfo" resultType="server.main.dto.ServerMainDto" parameterType="int">
-		SELECT *
+		SELECT user_id, id, pwd, name, gender, phone, email, TO_CHAR(create_date, 'mon DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH') AS create_date, today
 		FROM tp_account
 		WHERE user_id=#{user_id}
 	</select>
-	<select id="getRandomPage" resultType="server.main.dto.ServerMainDto">
+	<select id="getRandomPage" resultType="server.main.dto.ServerMainDto"><!-- DY MM, YYYY -->
 		SELECT *
 		FROM tp_account
 	</select>
