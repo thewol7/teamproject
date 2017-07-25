@@ -102,3 +102,37 @@ $("#submit").click(function(){
 // session에 있는 이름 넘겨주기 위함
 /*ServerMainDto mainDto=ServerMainDao.getInst().getInfo((Integer)request.getSession().getAttribute("id"));
 request.setAttribute("session", mainDto);*/
+
+
+<div class="4u 12u$(xsmall) input-reform-bottom">							
+	<script>
+	    UPLOADCARE_PUBLIC_KEY = 'c51998378cdd90bd1018';
+	    UPLOADCARE_TABS = 'file url facebook gdrive dropbox instagram';
+	    UPLOADCARE_IMAGES_ONLY = true;
+	    UPLOADCARE_LOCALE_TRANSLATIONS = {
+	    		  buttons: {
+	    		    cancel: 'Cancel',
+	    		    remove: 'Remove',
+	    		    choose: {								    		
+	    		      images: {
+	    		        one: 'Profile img'
+	    		      }
+	    		    }
+	    		  }
+	    		};
+	</script>								
+	<input
+	    type="hidden"
+	    role="uploadcare-uploader"
+	    name="Profile"
+	    data-public-key="c51998378cdd90bd1018"
+	    data-tabs="file url facebook gdrive dropbox instagram"
+	    data-image-shrink="50x50 100%"
+	    data-images-only="true"
+	    data-preview-step="false"
+	    data-clearable="false"
+	    data-multiple="false"
+	    data-system-dialog="false"
+	    data-crop="50x50 upscale"
+	/>	
+</div>

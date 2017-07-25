@@ -20,7 +20,7 @@
 <script>
 	// 로그인 안되어 있을때 글쓰기 클릭시 실행할 함수
 	function loginChk() {
-		if (<%=request.getSession().getAttribute("id")%> == null){
+		if (${empty id}){
 			if(confirm("로그인이 필요합니다.")){
 		        location.href = "<%=cPath%>/loginform.do";
 			}

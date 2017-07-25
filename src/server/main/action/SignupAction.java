@@ -25,6 +25,7 @@ public class SignupAction extends Action {
 			dto.setGender(request.getParameter("gender"));
 			dto.setPhone(request.getParameter("phone"));
 			dto.setEmail(request.getParameter("email"));
+			dto.setProfile_img(request.getParameter("photo_value"));
 			dao.signup(dto);
 			return new ActionForward("/home.do", true);
 		}
