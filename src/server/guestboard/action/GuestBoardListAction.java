@@ -24,7 +24,7 @@ public class GuestBoardListAction extends Action{
 		}
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
-		int totalRow = (int)GuestBoardDao.getInstance().getMaxpage((Integer)request.getSession().getAttribute("page_id"));
+		int totalRow = GuestBoardDao.getInstance().getMaxpage((Integer)request.getSession().getAttribute("page_id"));
 		int totalPageCount=(int)Math.ceil((double)totalRow/(double)PAGE_ROW_COUNT);
 		int startPageNum=
 				1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;

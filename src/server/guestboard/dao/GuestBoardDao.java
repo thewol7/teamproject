@@ -67,8 +67,8 @@ public class GuestBoardDao {
 		session.delete("guestboard.delete",cont_id);
 		session.close();
 	}
-	//총 방명록갯수를 받아오는 메소드
-	public double getMaxpage(int page_id){
+	//페이지주인에 해당하는 총 방명록갯수를 받아오는 메소드
+	public int getMaxpage(int page_id){
 		SqlSession session=factory.openSession();
 		int count=0;
 		try{
