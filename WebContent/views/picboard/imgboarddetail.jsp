@@ -127,7 +127,7 @@
 								/* CKEDITOR.config.readOnly = true; */
 							</script>
 						</div>  --%>
-					<p>${dto.content_content }</p>
+					<p class="contentImg">${dto.content_content }</p>
 				</div>
 				<!-- Break -->
 				<div class="12u$" style="text-align: right">

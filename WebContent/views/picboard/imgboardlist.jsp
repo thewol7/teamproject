@@ -200,13 +200,14 @@
 				return true;
 			}
 		}
-
-		$(".img-panel").imgLiquid({
-			fill : true,
-			horizontalAlign : "center",
-			verticalAlign : "center"
-		});
 	}
+	
+	$(".img-panel").imgLiquid({
+		fill : true,
+		horizontalAlign : "center",
+		verticalAlign : "center"
+	});
+
 	</script>
 </body>
 </html>

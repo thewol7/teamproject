@@ -2140,6 +2140,7 @@ input[type="radio"]+label:before {
 	top: 0.25em;
 }
 
+/* list에 image 사이즈 공통으로 만듦 */
 .image.fit {
 	display: block;
 	margin: 0 0 2em 0;
@@ -3745,12 +3746,12 @@ body.cke_editable cke_editable_themed cke_contents_ltr p{
 }
 
 /* 한줄로 길어질때 자동 줄 바꿈으로 표시되게 */
-.box>p, .box>p.image, .comment ul li>p{
+.box>p, .box>p.contentImg, .comment ul li>p{
 	word-break:break-all;
 }
 
 /* 이미지 커질때 자동 사이즈 줄임 */
-.box>.image img{
+.box>.contentImg img{
 	display: block;
 	width: 100%;
 }
