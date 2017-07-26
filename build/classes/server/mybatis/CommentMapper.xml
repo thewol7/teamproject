@@ -4,7 +4,7 @@
 	<!-- 일반 게시판 db -->
 	<!-- ################################################################################# -->
 	<select id="priGetList" parameterType="int" resultType="server.comment.dto.CommentDto">
-		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate
+		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate, profile_img
 		FROM tp_priboard_comment
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
@@ -15,14 +15,14 @@
 	</select>
 	<insert id="priInsert" parameterType="server.comment.dto.CommentDto">
 		INSERT INTO tp_priboard_comment
-		(num, user_id, writer, content, ref_group, comment_group, regdate)
-		VALUES(#{num}, #{user_id}, #{writer}, #{content}, #{ref_group}, #{comment_group}, SYSDATE)
+		(num, user_id, writer, content, ref_group, comment_group, regdate, profile_img)
+		VALUES(#{num}, #{user_id}, #{writer}, #{content}, #{ref_group}, #{comment_group}, SYSDATE, #{profile_img})
 	</insert>
 	
 	<!-- 이미지 게시판 db -->
 	<!-- ################################################################################# -->
 	<select id="picGetList" parameterType="int" resultType="server.comment.dto.CommentDto">
-		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate
+		SELECT num, user_id, writer, content, ref_group, comment_group,	TO_CHAR(regdate, 'YYYY-MM-DD') AS regdate, profile_img
 		FROM tp_picboard_comment
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
@@ -33,8 +33,8 @@
 	</select>
 	<insert id="picInsert" parameterType="server.comment.dto.CommentDto">
 		INSERT INTO tp_picboard_comment
-		(num, user_id, writer, content, ref_group, comment_group, regdate)
-		VALUES(#{num}, #{user_id}, #{writer}, #{content}, #{ref_group}, #{comment_group}, SYSDATE)
+		(num, user_id, writer, content, ref_group, comment_group, regdate, profile_img)
+		VALUES(#{num}, #{user_id}, #{writer}, #{content}, #{ref_group}, #{comment_group}, SYSDATE, #{profile_img})
 	</insert>
 </mapper>
 

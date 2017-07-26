@@ -3,7 +3,7 @@
 <%
 	String cPath = request.getContextPath();
 %>
-<link rel="stylesheet" href="<%=cPath%>/assets/css/main.css?ver=1" />
+<link rel="stylesheet" href="<%=cPath%>/assets/css/main.css?ver=2" />
 <%-- <link rel="stylesheet" href="<%=cPath%>/assets/css/bootstrap.min.css" />
 <script src="<%=cPath%>/assets/js/bootstrap.min.js"></script> --%>
 <script src="<%=cPath%>/assets/js/jquery.min.js"></script>

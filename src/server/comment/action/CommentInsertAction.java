@@ -22,8 +22,9 @@ public class CommentInsertAction extends Action{
 		String comment_group=request.getParameter("comment_group");
 		// 일반게시판 id = 1, 이미지게시판id = 2
 		String board_id = request.getParameter("board_id");
+		String profile_img = request.getParameter("photo_value");
 		int seq=CommentDao.getInstance().priGetSequence();
-		
+		System.out.println("photo_value: "+profile_img);
 		//새덧글 정보를 Dto 에 담는다. 일반게시판 id = 1, 이미지게시판id = 2
 		if(board_id.equals("1")){
 			CommentDto dto=new CommentDto();
@@ -32,6 +33,7 @@ public class CommentInsertAction extends Action{
 			dto.setWriter(writer);
 			dto.setContent(content);
 			dto.setRef_group(ref_group);
+			dto.setProfile_img(profile_img);
 			if(comment_group==null){//원글에 대한 덧글인 경우
 				//덧글의 그룹번호를 덧글의 글번호와 같게 설정한다.
 				dto.setComment_group(seq);
@@ -52,6 +54,7 @@ public class CommentInsertAction extends Action{
 			dto.setWriter(writer);
 			dto.setContent(content);
 			dto.setRef_group(ref_group);
+			dto.setProfile_img(profile_img);
 			if(comment_group==null){//원글에 대한 덧글인 경우
 				//덧글의 그룹번호를 덧글의 글번호와 같게 설정한다.
 				dto.setComment_group(seq);

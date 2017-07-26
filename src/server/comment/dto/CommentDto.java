@@ -11,13 +11,14 @@ public class CommentDto {
 	private int ref_group; // 덧글의 그룹 번호
 	private int comment_group; // 덧글 내에서의 그룹
 	private String regdate;
+	private String profile_img;
 
 	// 생성자
 	public CommentDto() {
 	}
 
 	public CommentDto(int num, int user_id, String writer, String content, int ref_group, int comment_group,
-			String regdate) {
+			String regdate, String profile_img) {
 		super();
 		this.num = num;
 		this.user_id = user_id;
@@ -83,5 +84,12 @@ public class CommentDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	
+	public String getProfile_img() {
+		return profile_img;
+	}
 
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
+	}
 }

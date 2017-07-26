@@ -155,7 +155,7 @@
 						</c:if>
 						<div class="row uniform">
 							<div class="1u">
-								<img class="profile_img" src="${pageContext.request.contextPath }/images/icons/Vente d'esclavesnew.png" alt="" />
+								<img class="profile_img" src="${tmp.profile_img }" alt="" />
 							</div>	
 							<div class="dbContent 11u">
 								<ul class="alt">
@@ -170,15 +170,15 @@
 								</ul>
 							</div>
 						</div>
-							<form class="repForm" method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
+							<form class="rep_form" method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
 								<!-- <ul class="alt">
 									<li>
 										<a class="icon" href="">#${session.name }</a>
 									</li>
 								</ul> -->
 								<div class="row uniform">
-									<div class="1u profileImg">
-										<img class="profile_img" style="float:left" src="${pageContext.request.contextPath }/images/icons/Acenew.png" alt="" />
+									<div class="1u profileImg_header">
+										<img class="profile_img" src="${session.profile_img }" alt="" />
 									</div>											
 									<div class="showContent 9u 8u(medium) 8u(small) 11u$(xsmall)" > <!-- style="padding-top: 0; padding-left:0" -->
 											<textarea style="resize: none" name="content" placeholder="COMMENT" rows="2"></textarea>
@@ -193,6 +193,7 @@
 											<input type="hidden" name="comment_group" value="${tmp.comment_group }" />
 											<!-- 덧글 게시판 번호 일반 게시판 1, img게시판 2-->
 											<input type="hidden" name="board_id" value="1" /> 
+											<input type="hidden" name="photo_value" id="photo_value1" value=""/>
 											<input class="button small" type="submit" value="COMMENT"/>
 										</ul>
 									</div>									
@@ -200,7 +201,7 @@
 							</form>
 						</div>
 					</c:forEach>
-					<form method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
+					<form class="rep_mainform" method="post" action="${pageContext.request.contextPath }/views/board/boardcomment.do">
 						<ul class="alt">
 							<c:if test="${empty id }">
 								<li>로그인 후 글을 남겨주세요</li>
@@ -212,8 +213,8 @@
 							</c:if> --%>
 						</ul>
 						<div class="row uniform">	
-							<div class="1u profileImg">
-								<img class="profile_img" src="${pageContext.request.contextPath }/images/icons/Luffys flag 2new.png" alt="" />
+							<div class="1u profileImg_header">
+								<img class="profile_img" src="${session.profile_img }" alt="" />
 							</div>						
 							<div class="showContent 9u 8u(medium) 8u(small) 11u$(xsmall)">
 								<textarea style="resize: none" name="content" id="content" placeholder="COMMENT" rows="2"></textarea>
@@ -227,7 +228,8 @@
 									<input type="hidden" name="ref_group" value="${result.cont_id }" />
 									<!-- 덧글 게시판 번호 일반 게시판 1, img게시판 2-->
 									<input type="hidden" name="board_id" value="1" /> 
-									<input class="button small" type="submit" value="COMMENT" onclick="return repChk()" />
+									<input type="hidden" name="photo_value" id="photo_value2" value=""/>
+									<input class="button small" type="submit" value="COMMENT"/>
 								</ul>
 							</div>
 						</div>
@@ -258,9 +260,15 @@
 	
 	//덧글의 덧글 form 에 전송이벤트가 일어낫을때 실행할 함수 등록
 	// 기존에 id값으로 안됬던건 유일한 값이 아니었기 때문이다.
-	$(".repForm").submit(function(){
+	$(".rep_form").submit(function(){
 		//이벤트가 일어난 바로 그 폼을 선택해서 자손요소 중에서 textarea 요소를 찾아서 value 값 읽어오기 
 		var content=$(this).find("textarea").val();
+		// 이미지 주소뽑아오기
+		var imgSrc = $(this).find("img").attr("src");
+		// 이미지 주소 뽑아와서 input value에 담기
+		document.getElementById("photo_value1").value=imgSrc;
+		
+		alert("photo_value1: "+document.getElementById("photo_value1").value);
 		if(content==''){
 		    alert('Comment를 입력해 주세요');
 			return false; //폼전송 막기 
@@ -270,19 +278,24 @@
 	});
 	
 	/* 기본 댓글 */
-	function repChk() {
+	$(".rep_mainform").submit(function(){
+		var imgSrc = $(this).find("img").attr("src");
+		var content=$(this).find("textarea").val();
+		document.getElementById("photo_value2").value=imgSrc;
+		
+		alert("photo_value2: "+document.getElementById("photo_value2").value);
 		if (${empty id}){
 			if(confirm("로그인이 필요합니다.")){
 		        location.href = "${pageContext.request.contextPath }/loginform.do";
 			}
 			return false;
-		} else if($("#content").val().trim().length < 1){
+		} else if(content==''){
 			alert("Comment를 입력해 주세요.");
 			return false;
 		} else {
 			return true;
 		}
-	}
+	});
 	
 	$('.tools-container').hide();
 

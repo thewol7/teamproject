@@ -11,12 +11,13 @@ public class ServerMainDto {
 	private String create_date;
 	private int today;
 	private String profile_img;
+	private String profile_cmt;
 
 	public ServerMainDto() {
 	}
 
 	public ServerMainDto(int user_id, String id, String pwd, String name, String gender, String phone, String email,
-			String create_date, int today, String profile_img) {
+			String create_date, int today, String profile_img, String profile_cmt) {
 		super();
 		this.user_id = user_id;
 		this.id = id;
@@ -28,6 +29,7 @@ public class ServerMainDto {
 		this.create_date = create_date;
 		this.today = today;
 		this.profile_img = profile_img;
+		this.profile_cmt = profile_cmt;
 	}
 
 	public int getUser_id() {
@@ -109,5 +111,12 @@ public class ServerMainDto {
 	public void setProfile_img(String profile_img) {
 		this.profile_img = profile_img;
 	}
+	
+	public String getProfile_cmt() {
+		return profile_cmt;
+	}
 
+	public void setProfile_cmt(String profile_cmt) {
+		this.profile_cmt = profile_cmt;
+	}
 }

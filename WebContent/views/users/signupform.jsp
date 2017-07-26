@@ -128,19 +128,19 @@ div.uploadcare--progress, div.uploadcare--progress_type_canvas{
 				<div class="content">
 					<form action="signup.do" method="post" class="signup_form" novalidate>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="text" name="id" placeholder="Id">
+							<input type="text" name="id" placeholder="ID">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="password" name="pwd" id="pwd" placeholder="Password">
+							<input type="password" name="pwd" id="pwd" placeholder="PASSWORD">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="text" name="name" id="name" placeholder="Name">
+							<input type="text" name="name" id="name" placeholder="NAME">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="text" name="phone" id="phone" placeholder="Phone">
+							<input type="text" name="phone" id="phone" placeholder="PHONE">
 						</div>
 						<div class="12u 12u$(xsmall) input-reform-bottom">
-							<input type="email" name="email" id="email" placeholder="Email">
+							<input type="email" name="email" id="email" placeholder="EMAIL">
 						</div>
 						<div class="row uniform" style="text-align:-webkit-center;">
 							<div class="6u 12u$(xsmall) input-reform-bottom">
@@ -154,15 +154,16 @@ div.uploadcare--progress, div.uploadcare--progress_type_canvas{
 							<div class="4u input-reform-bottom">
 								<div class="image-preview-single">
 									<image id="profileImage" src="${pageContext.request.contextPath }/images/icons/default.png" />
-									<input type="hidden" role="uploadcare-uploader" data-clearable="" data-images-only="" data-public-key="1c86ca998ba22e75fbc6">
-									<!-- <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture> -->
-									<input type="hidden" name="photo_value" id="photo_value" value="" />							
-									<!-- <label style="text-align: center;">PHOTO</label> -->																		
+									<input type="hidden" role="uploadcare-uploader" data-clearable="" data-images-only="">									
+									<input type="hidden" name="photo_value" id="photo_value" value="" />
+									<script>
+										UPLOADCARE_PUBLIC_KEY = '07c3ee3ce257b7a7ce86';
+									</script>																								
 								</div>															
 							</div>
 							<div class="8u input-reform-bottom">
 								<div id="profile-container">
-									<textarea style="resize:none;" name="profile_cmt" id="profile_cmt" placeholder=""	rows="5"></textarea>
+									<textarea style="resize:none;" name="profile_cmt" id="profile_cmt" placeholder="Enter your profile image and self introduction"	rows="5" maxlength="100"></textarea>
 									<label style="text-align: center;">INTRO</label>
 								</div>								
 							</div>							
@@ -192,8 +193,8 @@ div.uploadcare--progress, div.uploadcare--progress_type_canvas{
 		</div>
 <script>
 
+/* 이미지 선택시 숨어있는 uploadcare 버튼이 팝업되게 연결 */
 $("#profileImage").click(function(e){
-	/* $("#imageUpload").click(); */
 	$(".uploadcare--widget__button_type_open").click();
 });
 
@@ -208,10 +209,15 @@ function installWidgetPreviewSingle(widget, img) {
 	        var previewUrl = fileInfo.cdnUrl + '-/scale_crop/' + size + '/center/';
 	        img.attr('src', previewUrl);
 	        img.css('visibility', 'visible');
+	        console.log("preview: "+previewUrl);
+	        // 업로드한 image url을 얻어내서 photo_value 요소에 넣음
+	        document.getElementById("photo_value").value=previewUrl;
+	        console.log("VALUE: " +document.getElementById("photo_value").value);
 	      });
 	    }
 	  });
 	}
+	
 $(function() {
   $('.image-preview-single').each(function() {
     installWidgetPreviewSingle(
@@ -221,35 +227,16 @@ $(function() {
   });
 });
 	  
-/* 프로필 이미지 선택시  이미지 팝업 및 변경*/
-/* var file = uploadcare.fileFrom('url', 'http://example.com/image.png'); */
-/* function fasterPreview( uploader ) {
-    if ( uploader.files && uploader.files[0] ){
-          $('#profileImage').attr('src', 
-             window.URL.createObjectURL(uploader.files[0]) );
-          console.log(window.URL.createObjectURL(uploader.files[0]));
-          
-          document.getElementById("photo_value").value=window.URL.createObjectURL(uploader.files[0]);
-          console.log("input value : "+window.URL.createObjectURL(uploader.files[0]));
-    }
-}
 
-$("#imageUpload").change(function(){
-    fasterPreview( this );
-    
-}); */
-
-$(".signup_form").submit(function(){
+/* $(".signup_form").submit(function(){
 	//이벤트가 일어난 바로 그 폼을 선택해서 자손요소 중에서 textarea 요소를 찾아서 value 값 읽어오기 
 	if(document.getElementById("photo_value").value == null || document.getElementById("photo_value").value == ''){
-		document.getElementById("photo_value").value = "${pageContext.request.contextPath }/images/icons/default.png";
+		/* document.getElementById("photo_value").value = "${pageContext.request.contextPath }/images/icons/default.png"; */
 		/* alert('프로필 사진을 등록해 주세요.'); */
-		console.log("default image : "+document.getElementById("photo_value").value);
-		return true;
+		/* console.log("image : "+document.getElementById("photo_value").value);
+		return false;
 	}
-});
-
-/* $(".uploadcare--widget__button_type_open").hide(); */
+}); */
 </script>
 </body>
 </html>
