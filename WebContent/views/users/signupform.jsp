@@ -12,17 +12,7 @@
 <title>회원가입</title>
 </head>
 <style>
-#imageUpload
-{
-    display: none;
-}
-
-#profileImage
-{
-    cursor: pointer;
-}
-
-#profile-container {
+.image-preview-single {
     width: 100%;
     height: 150px;
     overflow: hidden;
@@ -33,12 +23,42 @@
     border-radius: 10%; */
 }
 
-#profile-container img {
-    width: 100%;
-    height: 150px;
+.image-preview-single > img {
+  width: 100%;
+  height: 150px;
+  vertical-align: middle;
+  /* visibility: hidden; */
+  display: inline-block;
+  cursor: pointer;
 }
-.uploadcare--widget__button_type_open{
+
+div.uploadcare--progress, div.uploadcare--progress_type_canvas{
+	position : relative;
+}
+.uploadcare--progress__canvas{
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: -380%;
+	left:-30%;
+}
+
+.uploadcare--widget__button_type_open, 
+.uploadcare--widget uploadcare--widget_option_clearable, 
+.uploadcare--widget_status_loaded,
+.uploadcare--widget__text,
+.uploadcare--widget__button_type_cancel{
 	display:none;
+}
+
+.uploadcare--button_primary{
+	background-color : #FFFFFF;
+	border-color: #f56a6a;
+}
+
+.uploadcare--button_primary:hover{
+	background-color : rgba(245, 106, 106, 0.05);
+	border-color: #f56a6a;
 }
 </style>
 <body>
@@ -100,12 +120,8 @@
 				<section id="banner" style="padding-bottom : 0">
 				<div class="content">
 					<header style="text-align:center;">
-					<h1 style="margin-bottom:0;">SIGNUP</h1>
-					<input type="hidden" role="uploadcare-uploader" name="my_file" />
-					<script>
-					  UPLOADCARE_PUBLIC_KEY = 'demopublickey';
-					</script>
-					</header>
+					<h1 style="margin-bottom:0;">SIGNUP</h1>	
+					</header>				
 				</div>
 				</section>
 				<section id="banner" class="signup-input-reform">
@@ -136,18 +152,18 @@
 								<label for="female">FEMALE</label>
 							</div>
 							<div class="4u input-reform-bottom">
-								<div id="profile-container">
+								<div class="image-preview-single">
 									<image id="profileImage" src="${pageContext.request.contextPath }/images/icons/default.png" />
-								</div>
-								<input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture>
-								<input type="hidden" name="photo_value" id="photo_value" value="" />
-								
-								<!-- <label style="text-align: center;">PHOTO</label> -->
+									<input type="hidden" role="uploadcare-uploader" data-clearable="" data-images-only="" data-public-key="1c86ca998ba22e75fbc6">
+									<!-- <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture> -->
+									<input type="hidden" name="photo_value" id="photo_value" value="" />							
+									<!-- <label style="text-align: center;">PHOTO</label> -->																		
+								</div>															
 							</div>
 							<div class="8u input-reform-bottom">
 								<div id="profile-container">
 									<textarea style="resize:none;" name="profile_cmt" id="profile_cmt" placeholder=""	rows="5"></textarea>
-									<label style="text-align: center;">COMMENT</label>
+									<label style="text-align: center;">INTRO</label>
 								</div>								
 							</div>							
 							<div class="12u 12u$(xsmall)">
@@ -176,15 +192,38 @@
 		</div>
 <script>
 
-/* 프로필 이미지 선택 */
 $("#profileImage").click(function(e){
-	$("#imageUpload").click();
-	/* $(".uploadcare--widget__button_type_open").click() */
+	/* $("#imageUpload").click(); */
+	$(".uploadcare--widget__button_type_open").click();
 });
 
+
+function installWidgetPreviewSingle(widget, img) {
+	  widget.onChange(function(file) {
+	    /* img.css('visibility', 'hidden'); */
+	    /* img.attr('src', ''); */
+	    if (file) {
+	      file.done(function(fileInfo) {
+	        var size = '' + (img.width() * 2) + 'x' + (img.height() * 2);
+	        var previewUrl = fileInfo.cdnUrl + '-/scale_crop/' + size + '/center/';
+	        img.attr('src', previewUrl);
+	        img.css('visibility', 'visible');
+	      });
+	    }
+	  });
+	}
+$(function() {
+  $('.image-preview-single').each(function() {
+    installWidgetPreviewSingle(
+      uploadcare.SingleWidget($(this).children('input')),
+      $(this).children('img')
+    );
+  });
+});
+	  
 /* 프로필 이미지 선택시  이미지 팝업 및 변경*/
 /* var file = uploadcare.fileFrom('url', 'http://example.com/image.png'); */
-function fasterPreview( uploader ) {
+/* function fasterPreview( uploader ) {
     if ( uploader.files && uploader.files[0] ){
           $('#profileImage').attr('src', 
              window.URL.createObjectURL(uploader.files[0]) );
@@ -198,7 +237,7 @@ function fasterPreview( uploader ) {
 $("#imageUpload").change(function(){
     fasterPreview( this );
     
-});
+}); */
 
 $(".signup_form").submit(function(){
 	//이벤트가 일어난 바로 그 폼을 선택해서 자손요소 중에서 textarea 요소를 찾아서 value 값 읽어오기 

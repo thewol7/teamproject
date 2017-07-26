@@ -155,7 +155,7 @@
 						</c:if>
 						<div class="row uniform">
 							<div class="1u">
-								<img src="${pageContext.request.contextPath }/images/icons/Vente d'esclavesnew.png" alt="" />
+								<img class="profile_img" src="${pageContext.request.contextPath }/images/icons/Vente d'esclavesnew.png" alt="" />
 							</div>	
 							<div class="dbContent 11u">
 								<ul class="alt">
@@ -178,7 +178,7 @@
 								</ul> -->
 								<div class="row uniform">
 									<div class="1u profileImg">
-										<img style="float:left" src="${pageContext.request.contextPath }/images/icons/Acenew.png" alt="" />
+										<img class="profile_img" style="float:left" src="${pageContext.request.contextPath }/images/icons/Acenew.png" alt="" />
 									</div>											
 									<div class="showContent 9u 8u(medium) 8u(small) 11u$(xsmall)" > <!-- style="padding-top: 0; padding-left:0" -->
 											<textarea style="resize: none" name="content" placeholder="COMMENT" rows="2"></textarea>
@@ -213,7 +213,7 @@
 						</ul>
 						<div class="row uniform">	
 							<div class="1u profileImg">
-								<img src="${pageContext.request.contextPath }/images/icons/Luffys flag 2new.png" alt="" />
+								<img class="profile_img" src="${pageContext.request.contextPath }/images/icons/Luffys flag 2new.png" alt="" />
 							</div>						
 							<div class="showContent 9u 8u(medium) 8u(small) 11u$(xsmall)">
 								<textarea style="resize: none" name="content" id="content" placeholder="COMMENT" rows="2"></textarea>
