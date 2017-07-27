@@ -3765,11 +3765,11 @@ div.comments{
 
 /* 댓글 패딩 값 수정 */
 .row.uniform div.dbContent {
-	padding-left:0;
+	/* padding-left:0; */
 }
 
 .row.uniform div.showContent {
-	padding-left:0;
+	/* padding-left:0; */
 	padding-top:0;
 }
 

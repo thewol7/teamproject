@@ -262,15 +262,12 @@
 	// 기존에 id값으로 안됬던건 유일한 값이 아니었기 때문이다.
 	$(".rep_form").submit(function(){
 		//이벤트가 일어난 바로 그 폼을 선택해서 자손요소 중에서 textarea 요소를 찾아서 value 값 읽어오기 
-		var content=$(this).find("textarea").val();
+		var content=$(this).find("textarea").val();		
+		// 이미지 주소뽑아오기
 		var imgSrc = '<c:out value="${session.profile_img}"/>';
-		/* // 이미지 주소뽑아오기
-		var imgSrc = $(this).find("img").attr("src");
-
 		// 이미지 주소 뽑아와서 input value에 담기
-		document.getElementById("photo_value1").value=imgSrc; */
-		document.getElementById("photo_value1").value=imgSrc;
-		alert("photo_value1: "+document.getElementById("photo_value1").value)
+		var photo_value = $(this).find("#photo_value1").val(imgSrc);
+		/* alert(photo_value); */
 		if(content==''){
 		    alert('Comment를 입력해 주세요');
 			return false; //폼전송 막기 
