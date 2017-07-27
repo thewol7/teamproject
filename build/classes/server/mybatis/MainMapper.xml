@@ -3,7 +3,7 @@
 <mapper namespace="main">
 	<insert id="signup" parameterType="server.main.dto.ServerMainDto">
 		INSERT INTO tp_account
-		VALUES(tp_account_seq.NEXTVAL, #{id}, #{pwd}, #{name}, #{gender}, #{phone}, #{email}, SYSDATE, DEFAULT)
+		VALUES(tp_account_seq.NEXTVAL, #{id}, #{pwd}, #{name}, #{gender}, #{phone}, #{email}, SYSDATE, DEFAULT, #{profile_img}, #{profile_cmt})
 	</insert>
 	<select id="idcheck" resultType="int" parameterType="String">
 		SELECT count(*)
@@ -17,7 +17,8 @@
 		AND pwd=#{pwd}
 	</select>
 	<select id="getInfo" resultType="server.main.dto.ServerMainDto" parameterType="int">
-		SELECT user_id, id, pwd, name, gender, phone, email, TO_CHAR(create_date, 'mon DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH') AS create_date, today
+		SELECT user_id, id, pwd, name, gender, phone, email, 
+		TO_CHAR(create_date, 'mon DD, YYYY', 'NLS_DATE_LANGUAGE=ENGLISH') AS create_date, today, profile_img, profile_cmt
 		FROM tp_account
 		WHERE user_id=#{user_id}
 	</select>

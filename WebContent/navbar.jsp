@@ -26,10 +26,10 @@
 			<ul class="icons">
 				<li>					
 					<a href="${pageContext.request.contextPath }/mnt.do">
-						<img src="${pageContext.request.contextPath }/images/icons/Vente d'esclavesnew.png" alt="" />
+						<img id="profile_img_main" src="${session.profile_img }" alt="" />
 					</a>
 				</li>
-				<li style="padding:0">
+				<li id="profile_name">
 					<a href="${pageContext.request.contextPath }/mnt.do" class="icon">${session.name }</a>
 					<i>
 					<%-- <fmt:parseDate value="${session.create_date }" var="dateTmp" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -131,3 +131,6 @@
 	</footer>
 
 </div>
+
+
+

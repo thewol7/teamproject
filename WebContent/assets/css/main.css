@@ -2233,6 +2233,8 @@ ul.icons {
 ul.icons li {
 	display: inline-block;
 	padding: 0 1em 0 0;
+	/* 추가추가 */	
+	vertical-align: middle;
 }
 
 ul.icons li:last-child {
@@ -3763,15 +3765,33 @@ div.comments{
 
 /* 댓글 패딩 값 수정 */
 .row.uniform div.dbContent {
-	padding-left:0;
+	/* padding-left:0; */
 }
 
 .row.uniform div.showContent {
-	padding-left:0;
+	/* padding-left:0; */
 	padding-top:0;
 }
 
 /* comment profile img top size */
-.row.uniform div.profileImg{
+.row.uniform div.profileImg_header{
 	padding-top:11px;
 }
+
+img.profile_img{
+	width: 50px;
+	height: 50px;
+	/* vertical-align: middle; */
+	  /* visibility: hidden; */
+	display: inline-block;
+	
+}
+
+img#profile_img_main{
+	width: 100px;
+	height: 100px;
+	/* vertical-align: middle; */
+	  /* visibility: hidden; */
+	display: inline-block;
+}
+

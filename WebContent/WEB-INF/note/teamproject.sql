@@ -18,7 +18,9 @@ CREATE TABLE tp_account(
 	phone VARCHAR2(30) NOT NULL,
 	email VARCHAR2(30) NOT NULL,
 	create_date DATE DEFAULT SYSDATE NOT NULL,
-	today NUMBER(9) DEFAULT 0 NOT NULL
+	today NUMBER(9) DEFAULT 0 NOT NULL,
+	profile_img CLOB, -- 기본 가입시 default 이미지로 아무거나 넣어줄거임
+    profile_cmt VARCHAR2(300)
 );
 
 CREATE SEQUENCE tp_account_seq;
@@ -65,7 +67,8 @@ CREATE TABLE tp_priboard_comment(
     content VARCHAR2(500),
     ref_group NUMBER, -- 덧글 그룹. 원글의 con_id를 넣는다.
     comment_group NUMBER, -- 덧글 내에서의 그룹
-    regdate DATE DEFAULT SYSDATE NOT NULL
+    regdate DATE DEFAULT SYSDATE NOT NULL,
+    profile_img CLOB
 );
 
 CREATE TABLE tp_picboard_comment(    
@@ -75,7 +78,8 @@ CREATE TABLE tp_picboard_comment(
     content VARCHAR2(500),
     ref_group NUMBER, -- 덧글 그룹
     comment_group NUMBER, -- 덧글 내에서의 그룹
-    regdate DATE DEFAULT SYSDATE NOT NULL
+    regdate DATE DEFAULT SYSDATE NOT NULL,
+    profile_img CLOB
 );
 
 CREATE SEQUENCE tp_priboard_comment_seq NOCACHE;

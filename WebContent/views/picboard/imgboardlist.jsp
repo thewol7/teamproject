@@ -192,7 +192,7 @@
 	</div>
 	<script>
 	function loginChk() {
-		if (${id} == null){
+		if (${empty id}){
 			if(confirm("로그인이 필요합니다.")){
 		        location.href = "${pageContext.request.contextPath}/loginform.do";
 				return false;
